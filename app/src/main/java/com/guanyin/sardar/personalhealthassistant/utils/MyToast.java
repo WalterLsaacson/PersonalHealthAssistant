@@ -3,9 +3,7 @@ package com.guanyin.sardar.personalhealthassistant.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-/**
- * Created by Sardar on 2016/12/9.
- */
+
 public class MyToast {
     public static void showToast(Context context, String message) {
         /* custom my toast
@@ -13,7 +11,7 @@ public class MyToast {
 
         // how to do
         // 1.加载自定义的视图
-        //View view  = LayoutInflater.from(context).inflate(R.layout.activity_main,null);
+        //View view  = LayoutInflater.from(context).inflate(R.layout.activity_fragment,null);
         // 2.获取视图上的文本域
 //        TextView textView = view.findViewById(R.id.);
 //        textView.setText(message);
