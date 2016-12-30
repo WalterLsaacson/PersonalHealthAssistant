@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <ImageView
+        android:src="@drawable/sport"
+        android:id="@+id/brief_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/icon"/>
+
+    <TextView
+        android:text="每日一跑"
+        android:textColor="@color/black"
+        android:id="@+id/brief_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:text="未开启"
+        android:id="@+id/brief_opened"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:text="19:30"
+        android:id="@+id/brief_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/firebrick"
+        android:textSize="16sp"/>
+
+</LinearLayout>
