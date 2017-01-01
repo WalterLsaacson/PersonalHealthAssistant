@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/edit_action_bar"/>
+
+    <LinearLayout
+        android:layout_marginTop="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/edit_clock_icon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/icon"/>
+
+        <TextView
+            android:id="@+id/edit_clock_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/edit_clock_opened_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_check_box_clock"
+                android:button="@null"/>
+
+            <TextView
+                android:id="@+id/edit_clock_opened_text"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/edit_clock_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/edit_clock_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</LinearLayout>

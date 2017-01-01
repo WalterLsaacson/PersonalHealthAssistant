@@ -6,11 +6,18 @@ import java.util.Date;
 public class Clock {
 
     private String mTitle;
-    private Date mDate;
-
+    private String mDate;
+    private String mId;
     private String mMusic;
     private boolean mOpened;
 
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
+    }
 
     public String getTitle() {
         return mTitle;
@@ -20,11 +27,11 @@ public class Clock {
         mTitle = title;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return mDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         mDate = date;
     }
 

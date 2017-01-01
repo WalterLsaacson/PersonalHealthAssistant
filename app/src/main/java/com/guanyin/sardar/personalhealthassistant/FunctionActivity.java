@@ -43,6 +43,7 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
         return new Intent(packageContext, FunctionActivity.class);
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

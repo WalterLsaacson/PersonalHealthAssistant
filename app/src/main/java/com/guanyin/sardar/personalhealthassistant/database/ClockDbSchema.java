@@ -10,7 +10,7 @@ public class ClockDbSchema {
             public static final String DATE = "date";
             public static final String OPENED = "opened";
             public static final String MUSIC = "music";
-
+            public static final String ID = "id";
         }
     }
 }

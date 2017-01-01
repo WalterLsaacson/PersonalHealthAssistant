@@ -59,7 +59,7 @@ public class FlashFragment extends Fragment {
                 getActivity().finish();
             }
         };
-        mTimer.schedule(mTimerTask, 5000);
+        mTimer.schedule(mTimerTask, 3000);
         return view;
     }
 
@@ -70,7 +70,7 @@ public class FlashFragment extends Fragment {
     }
 
     // 文本倒计时动态变化的实现
-    private CountDownTimer mCountDownTimer = new CountDownTimer(6000, 1000) {
+    private CountDownTimer mCountDownTimer = new CountDownTimer(4000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
             String timeCount = (millisUntilFinished / 1000) + "s";

@@ -22,15 +22,17 @@ public class ClockCursorWrapper extends CursorWrapper {
     public Clock getClock() {
         // 从数据库对象到clock对象的转换
         String title = getString(getColumnIndex(CLockTable.Cols.TITLE));
-        long date = getLong(getColumnIndex(CLockTable.Cols.DATE));
+        String date = getString(getColumnIndex(CLockTable.Cols.DATE));
         int isOpened = getInt(getColumnIndex(CLockTable.Cols.OPENED));
+        String id = getString(getColumnIndex(CLockTable.Cols.ID));
         String music = getString(getColumnIndex(CLockTable.Cols.MUSIC));
 
         // 创建clock对象
         Clock clock = new Clock();
-        clock.setDate(new Date(date));
         clock.setTitle(title);
+        clock.setDate(date);
         clock.setOpen(isOpened != 0);
+        clock.setId(id);
         clock.setMusic(music);
 
         return clock;

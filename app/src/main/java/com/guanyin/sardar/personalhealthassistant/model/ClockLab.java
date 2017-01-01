@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.guanyin.sardar.personalhealthassistant.database.ClockBaseHelper;
 import com.guanyin.sardar.personalhealthassistant.database.ClockCursorWrapper;
 import com.guanyin.sardar.personalhealthassistant.database.ClockDbSchema.CLockTable;
+import com.guanyin.sardar.personalhealthassistant.database.ClockDbSchema.CLockTable.Cols;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,19 +58,28 @@ public class ClockLab {
     }
 
     // 添加clock到列表
-    public void addClock(Clock clock) {
+//    public void addClock(Clock clock) {
+//        ContentValues values = getContentValues(clock);
+//
+//        mSQLiteDatabase.insert(CLockTable.NAME, null, values);
+//    }
+
+    // 更新修改过的clock数据
+    public void updateClock(Clock clock) {
+        String idString = clock.getId();
         ContentValues values = getContentValues(clock);
 
-        mSQLiteDatabase.insert(CLockTable.NAME, null, values);
+        mSQLiteDatabase.update(CLockTable.NAME, values, Cols.ID + " = ?", new
+                String[]{idString});
     }
 
     // 从clock对象转换到数据库可以识别的contentValues键值对对象
     private static ContentValues getContentValues(Clock clock) {
         ContentValues values = new ContentValues();
-        values.put(CLockTable.Cols.TITLE, clock.getTitle());
-        values.put(CLockTable.Cols.DATE, clock.getDate().toString());
-        values.put(CLockTable.Cols.OPENED, clock.isOpen() ? 1 : 0);
-        values.put(CLockTable.Cols.MUSIC, clock.getMusic());
+        values.put(Cols.TITLE, clock.getTitle());
+        values.put(Cols.DATE, clock.getDate());
+        values.put(Cols.OPENED, clock.isOpen() ? 1 : 0);
+        values.put(Cols.MUSIC, clock.getMusic());
         return values;
     }
 }

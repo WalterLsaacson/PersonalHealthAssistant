@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.guanyin.sardar.personalhealthassistant.ClockEditActivity;
 import com.guanyin.sardar.personalhealthassistant.R;
 import com.guanyin.sardar.personalhealthassistant.model.Clock;
 import com.guanyin.sardar.personalhealthassistant.model.ClockLab;
@@ -38,6 +39,8 @@ public class AlertFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
+        images = new int[]{R.drawable.tooth, R.drawable.longtimeseat, R.drawable.bloodpressure,
+                R.drawable.sleep, R.drawable.weight, R.drawable.medicine,};
         View view = inflater.inflate(R.layout.fragment_alert, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.clock_recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -46,19 +49,18 @@ public class AlertFragment extends Fragment {
         return view;
     }
 
-    private void updateUI() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 
-        images = new int[]{R.drawable.bloodpressure, R.drawable.sleep, R.drawable.sport,
-                R.drawable.medicine, R.drawable.longtimeseat};
+    private void updateUI() {
         ClockLab mClockLab = ClockLab.get(getActivity());
         List<Clock> clocks = mClockLab.getClocks();
 
-        if (mClockAdapter == null) {
-            mClockAdapter = new ClockAdapter(clocks);
-            mRecyclerView.setAdapter(mClockAdapter);
-        } else {
-            mRecyclerView.setAdapter(mClockAdapter);
-        }
+        mClockAdapter = new ClockAdapter(clocks);
+        mRecyclerView.setAdapter(mClockAdapter);
     }
 
     // viewHolder
@@ -69,7 +71,9 @@ public class AlertFragment extends Fragment {
         TextView mOpened;
         TextView mTime;
 
-        public ClockHolder(View itemView) {
+        Clock mClock;
+
+        ClockHolder(View itemView) {
             super(itemView);
             mIcon = (ImageView) itemView.findViewById(R.id.brief_icon);
             mTitle = (TextView) itemView.findViewById(R.id.brief_title);
@@ -78,17 +82,17 @@ public class AlertFragment extends Fragment {
             itemView.setOnClickListener(this);
         }
 
-        public void bindClock(com.guanyin.sardar.personalhealthassistant.model.Clock mClock, int
-                position) {
-            mIcon.setBackgroundResource(images[position]);
+        void bindClock(Clock clock) {
+            mClock = clock;
+            mIcon.setBackgroundResource(images[Integer.parseInt(clock.getId())]);
             mTitle.setText(mClock.getTitle());
             mOpened.setText(mClock.isOpen() ? "开启" : "未开启");
-            mTime.setText(mClock.getTitle());
+            mTime.setText(mClock.getDate());
         }
 
         @Override
         public void onClick(View v) {
-
+            startActivity(ClockEditActivity.newIntent(getActivity(), mClock.getId()));
         }
     }
 
@@ -97,7 +101,7 @@ public class AlertFragment extends Fragment {
 
         List<Clock> mClocks;
 
-        public ClockAdapter(List<Clock> clocks) {
+        ClockAdapter(List<Clock> clocks) {
             mClocks = clocks;
         }
 
@@ -110,7 +114,7 @@ public class AlertFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ClockHolder holder, int position) {
-            holder.bindClock(mClocks.get(position), position);
+            holder.bindClock(mClocks.get(position));
         }
 
         @Override
