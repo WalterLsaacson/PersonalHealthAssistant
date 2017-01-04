@@ -22,6 +22,11 @@
         <activity
             android:name=".ClockEditActivity">
         </activity>
+
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:process=":remote"/>
+        <service android:name=".service.MusicService"/>
     </application>
 
 </manifest>

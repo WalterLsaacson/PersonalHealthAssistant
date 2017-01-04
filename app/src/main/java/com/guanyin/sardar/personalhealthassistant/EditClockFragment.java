@@ -1,6 +1,9 @@
 package com.guanyin.sardar.personalhealthassistant;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,13 +20,16 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.guanyin.sardar.personalhealthassistant.receiver.AlarmReceiver;
 import com.guanyin.sardar.personalhealthassistant.model.Clock;
 import com.guanyin.sardar.personalhealthassistant.model.ClockLab;
+import com.guanyin.sardar.personalhealthassistant.service.MusicService;
 import com.guanyin.sardar.personalhealthassistant.utils.Const;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class EditClockFragment extends Fragment {
@@ -36,6 +42,8 @@ public class EditClockFragment extends Fragment {
 
     ClockLab mClockLab;
     private Clock mClock;
+    // 记录修改前的打开状态
+    boolean wasOpened;
 
     // 界面的控件元素
     ImageView mIcon;
@@ -168,6 +176,83 @@ public class EditClockFragment extends Fragment {
     private void updateDataBase() {
         // 更新数据库的数据
         mClockLab.updateClock(mClock);
+        // 添加闹钟到系统服务中
+        if (wasOpened) {
+            if (mClock.isOpen()) {
+                // 获取第一次的时间间隔
+                Const.showToast(getActivity(), format(getFirstOffset()));
+            } else {
+                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId());
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
+                        intent, 0);
+                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
+                        .ALARM_SERVICE);
+                alarmManager.cancel(pendingIntent);
+                Const.showToast(getActivity(), mClock.getTitle() + "取消");
+                getActivity().stopService(new Intent(getActivity(), MusicService.class));
+            }
+        } else {
+            if (!mClock.isOpen()) {
+                Const.showToast(getActivity(), mClock.getTitle() + "未开启");
+            } else {
+                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId());
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
+                        intent, 0);
+                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
+                        .ALARM_SERVICE);
+                long firstOffset = getFirstOffset();
+                alarmManager.set(AlarmManager.RTC_WAKEUP, 5000, pendingIntent);
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                        firstOffset,
+                        24 * 60 * 60 * 1000,
+                        pendingIntent);
+                Const.showToast(getActivity(), format(firstOffset));
+            }
+        }
+    }
+
+    private long getFirstOffset() {
+        // 获取第一次的时间间隔
+        String[] time = mClock.getDate().split(":");
+        long firstTimeOffset = 5000;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long currentTimeMills = calendar.getTimeInMillis();
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(time[1]));
+        firstTimeOffset = (currentTimeMills < calendar.getTimeInMillis())
+                ? calendar.getTimeInMillis() - currentTimeMills
+                : (24 * 60 * 60 * 1000) - (currentTimeMills - calendar.getTimeInMillis());
+        return firstTimeOffset;
+    }
+
+    // 装换下一次间隔的毫秒数为小时、分钟的叙述
+    private String format(long firstTimeOffset) {
+        int hour = 0;
+        int minutes = 0;
+        hour = (int) ((firstTimeOffset / 1000) / 60 / 60);
+        minutes = (int) ((firstTimeOffset / 1000) / 60 % 60);
+        StringBuilder sb = new StringBuilder();
+        sb.append("下次")
+                .append(mClock.getTitle())
+                .append("将在");
+        if (hour == 24) {
+            sb.append("一天之后提醒");
+            return sb.toString();
+        }
+        if (hour != 0) {
+            sb.append(hour)
+                    .append("小时");
+        }
+        if (minutes != 0) {
+            sb.append(minutes)
+                    .append("分钟");
+        }
+        sb.append("之后");
+        return sb.toString();
     }
 
     // 根据获取的参数，得知当前编辑的是哪一个clock条目
@@ -180,5 +265,6 @@ public class EditClockFragment extends Fragment {
                 break;
             }
         }
+        wasOpened = mClock.isOpen();
     }
 }

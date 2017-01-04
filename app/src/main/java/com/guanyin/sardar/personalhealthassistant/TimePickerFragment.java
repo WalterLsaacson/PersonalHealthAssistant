@@ -67,18 +67,27 @@ public class TimePickerFragment extends DialogFragment {
         return new AlertDialog.Builder(getActivity())
                 .setView(view)
                 .setTitle(R.string.time_picker_title)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                            int hour = mTimePicker.getHour();
-                            int minute = mTimePicker.getMinute();
-                            Calendar calendar = new GregorianCalendar(0, 0, 0, hour, minute);
-                            Date date1 = calendar.getTime();
-                            sendResult(Activity.RESULT_OK, date1);
-                        }
+                        sendResult(Activity.RESULT_CANCELED, null);
                     }
                 })
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build
+                                        .VERSION_CODES.M) {
+                                    int hour = mTimePicker.getHour();
+                                    int minute = mTimePicker.getMinute();
+                                    Calendar calendar = new GregorianCalendar(0, 0, 0, hour,
+                                            minute);
+                                    Date date1 = calendar.getTime();
+                                    sendResult(Activity.RESULT_OK, date1);
+                                }
+                            }
+                        }
+                )
                 .create();
     }
 

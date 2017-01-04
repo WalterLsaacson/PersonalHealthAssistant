@@ -38,7 +38,7 @@ public class ClockBaseHelper extends SQLiteOpenHelper {
                 ")"
         );
         db.execSQL("insert into " + CLockTable.NAME
-                + " values('护牙提醒','9:00','1','0','')"
+                + " values('护牙提醒','9:00','0','0','')"
         );
         db.execSQL("insert into " + CLockTable.NAME
                 + " values('运动提醒','18:00','0','1','')"
@@ -50,7 +50,7 @@ public class ClockBaseHelper extends SQLiteOpenHelper {
                 + " values('睡眠提醒','22:00','0','3','')"
         );
         db.execSQL("insert into " + CLockTable.NAME
-                + " values('测体重提醒','07:00','1','4','')"
+                + " values('测体重提醒','07:00','0','4','')"
         );
         db.execSQL("insert into " + CLockTable.NAME
                 + " values('服药提醒','13:00','0','5','')"

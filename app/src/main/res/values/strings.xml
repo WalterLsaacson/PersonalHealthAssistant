@@ -4,7 +4,7 @@
     <string name="app_name">PersonalHealthAssistant</string>
     <string name="_3s">3s</string>
     <string name="icon">icon</string>
-    <string name="time_picker_title">Time of clock:</string>
+    <string name="time_picker_title">提醒时间：</string>
 
 
 </resources>
