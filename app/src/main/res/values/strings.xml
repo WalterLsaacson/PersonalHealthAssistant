@@ -5,6 +5,9 @@
     <string name="_3s">3s</string>
     <string name="icon">icon</string>
     <string name="time_picker_title">提醒时间：</string>
+    <string name="meticulous">細粒度</string>
+    <string name="rough">粗粒度</string>
+    <string name="lightRank">lightRank</string>
 
 
 </resources>

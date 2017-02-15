@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.guanyin.sardar.personalhealthassistant">
+          package="com.guanyin.sardar.pha">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name_shorter"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".FunctionActivity">
+        android:theme="@style/NoActionBarTheme">
+        <activity android:name="com.guanyin.sardar.pha.FunctionActivity">
         </activity>
         <activity
-            android:name=".EntranceActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:name="com.guanyin.sardar.pha.EntranceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,13 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ClockEditActivity">
+            android:name="com.guanyin.sardar.pha.alert.ClockEditActivity">
+        </activity>
+        <activity
+            android:name="com.guanyin.sardar.pha.test_other_function.SensorActivity">
         </activity>
 
         <receiver
-            android:name=".receiver.AlarmReceiver"
+            android:name=".alert.receiver.AlarmReceiver"
             android:process=":remote"/>
-        <service android:name=".service.MusicService"/>
+        <service android:name=".alert.service.MusicService"/>
     </application>
 
 </manifest>
