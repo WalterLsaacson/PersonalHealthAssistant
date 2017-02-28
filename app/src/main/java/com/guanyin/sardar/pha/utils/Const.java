@@ -10,10 +10,7 @@ public class Const {
     final static boolean debug = true;
 
     public static void showToast(Context context, String contents) {
-        if (debug) {
             MyToast.showToast(context, contents);
-        }
-
     }
 
     public static void log(String TAG, String message) {

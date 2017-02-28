@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.guanyin.sardar.pha.R;
+import com.guanyin.sardar.pha.utils.Const;
 
 
 public class MineFragment extends Fragment {
@@ -26,14 +27,13 @@ public class MineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
-        getActivity().findViewById(R.id.testAddBadgeItem).setOnClickListener(new View
+        view.findViewById(R.id.testAddBadgeItem).setOnClickListener(new View
                 .OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
-                BadgeItem badgeItem = new BadgeItem().setBackgroundColor(R.color.red)
-                        .setText("34").setTextColor(R.color.yellow).setHideOnSelect(true);
+                Const.showToast(getActivity(),"test toast");
             }
         });
         return view;

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_alarm_receive"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/balloon"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.guanyin.sardar.pha.alert.receiver.AlarmReceiveActivity">
+
+    <TextView
+        android:id="@+id/alarm_title"
+        android:layout_marginTop="96dp"
+        android:text="@string/app_name_shorter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/alarm_stop"
+        android:layout_marginTop="192dp"
+        android:text="@string/app_name_shorter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="25sp"/>
+</LinearLayout>

@@ -183,20 +183,20 @@ public class EditClockFragment extends Fragment {
                 // 获取第一次的时间间隔
                 Const.showToast(getActivity(), format(getFirstOffset()));
             } else {
-                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId());
+                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId(),mClock.getTitle());
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
                         intent, 0);
                 AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
                         .ALARM_SERVICE);
                 alarmManager.cancel(pendingIntent);
+                pendingIntent.cancel();
                 Const.showToast(getActivity(), mClock.getTitle() + "取消");
-                getActivity().stopService(new Intent(getActivity(), MusicService.class));
             }
         } else {
             if (!mClock.isOpen()) {
                 Const.showToast(getActivity(), mClock.getTitle() + "未开启");
             } else {
-                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId());
+                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId(),mClock.getTitle());
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
                         intent, 0);
                 AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
@@ -204,7 +204,7 @@ public class EditClockFragment extends Fragment {
                 long firstOffset = getFirstOffset();
                 alarmManager.set(AlarmManager.RTC_WAKEUP, 5000, pendingIntent);
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                        firstOffset,
+                        firstOffset+(System.currentTimeMillis()),
                         24 * 60 * 60 * 1000,
                         pendingIntent);
                 Const.showToast(getActivity(), format(firstOffset));
