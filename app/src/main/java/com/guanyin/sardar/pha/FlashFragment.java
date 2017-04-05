@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.guanyin.sardar.pha.mine.EnterInfoActivity;
 import com.guanyin.sardar.pha.utils.MyApplication;
 
 import java.util.Timer;
@@ -30,9 +31,10 @@ public class FlashFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-    Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
 
-        View view = inflater.inflate(com.guanyin.sardar.pha.R.layout.fragment_flash, container, false);
+        View view = inflater.inflate(com.guanyin.sardar.pha.R.layout.fragment_flash, container,
+                false);
         // 获取application的实例
         if (mApplication == null) {
             mApplication = MyApplication.getInstance();
@@ -64,9 +66,15 @@ public class FlashFragment extends Fragment {
     }
 
     // TODO 添加服务器之后 可以进行登录状态的判断 然后跳转不同的activity
+    // 录入用户数据或者已经录入现在直接进入主界面
     public void toAnotherActivity() {
-        intent = FunctionActivity.newIntent(getActivity());
-        startActivity(intent);
+        if (MyApplication.initApp++ == 1) {
+            intent = EnterInfoActivity.newIntent(getActivity());
+            startActivity(intent);
+        } else {
+            intent = FunctionActivity.newIntent(getActivity());
+            startActivity(intent);
+        }
     }
 
     // 文本倒计时动态变化的实现

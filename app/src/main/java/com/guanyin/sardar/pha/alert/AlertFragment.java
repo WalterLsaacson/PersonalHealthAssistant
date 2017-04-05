@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanyin.sardar.pha.R;
-import com.guanyin.sardar.pha.model.Clock;
-import com.guanyin.sardar.pha.model.ClockLab;
+import com.guanyin.sardar.pha.alert.model.Clock;
+import com.guanyin.sardar.pha.alert.model.ClockLab;
 
 import java.util.List;
 

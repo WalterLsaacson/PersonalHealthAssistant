@@ -1,29 +1,44 @@
 package com.guanyin.sardar.pha.alert.service;
 
-import android.app.IntentService;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-
-public class MusicService extends IntentService {
-
+import com.guanyin.sardar.pha.R;
 
 
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     * @param name Used to name the worker thread, important only for debugging.
-     */
-    public MusicService(String name) {
-        super(name);
+public class MusicService extends Service {
+
+    MediaPlayer mp;
+    public static Intent newIntent(Context packageContext){
+        return new Intent(packageContext,MusicService.class);
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    public void onCreate() {
+        super.onCreate();
+        mp= new MediaPlayer();
+        mp=MediaPlayer.create(MusicService.this, R.raw.music);
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+//        mp.start();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+//        mp.stop();
+        super.onDestroy();
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }

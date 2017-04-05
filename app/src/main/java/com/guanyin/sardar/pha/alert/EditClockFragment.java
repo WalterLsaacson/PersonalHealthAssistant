@@ -20,17 +20,18 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.guanyin.sardar.pha.FunctionActivity;
+import com.guanyin.sardar.pha.R;
 import com.guanyin.sardar.pha.alert.receiver.AlarmReceiver;
-import com.guanyin.sardar.pha.model.Clock;
-import com.guanyin.sardar.pha.model.ClockLab;
-import com.guanyin.sardar.pha.alert.service.MusicService;
+import com.guanyin.sardar.pha.alert.model.Clock;
+import com.guanyin.sardar.pha.alert.model.ClockLab;
 import com.guanyin.sardar.pha.utils.Const;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+
+import static android.R.style.Theme_DeviceDefault_Light_Dialog_Alert;
 
 
 public class EditClockFragment extends Fragment {
@@ -73,10 +74,13 @@ public class EditClockFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View view = inflater.inflate(com.guanyin.sardar.pha.R.layout.fragment_edit_clock, container, false);
+        View view = inflater.inflate(com.guanyin.sardar.pha.R.layout.fragment_edit_clock,
+                container, false);
         gotClock();
-        images = new int[]{com.guanyin.sardar.pha.R.drawable.tooth, com.guanyin.sardar.pha.R.drawable.longtimeseat, com.guanyin.sardar.pha.R.drawable.bloodpressure,
-                com.guanyin.sardar.pha.R.drawable.sleep, com.guanyin.sardar.pha.R.drawable.weight, com.guanyin.sardar.pha.R.drawable.medicine,};
+        images = new int[]{com.guanyin.sardar.pha.R.drawable.tooth, com.guanyin.sardar.pha.R
+                .drawable.longtimeseat, com.guanyin.sardar.pha.R.drawable.bloodpressure,
+                com.guanyin.sardar.pha.R.drawable.sleep, com.guanyin.sardar.pha.R.drawable
+                .weight, com.guanyin.sardar.pha.R.drawable.medicine,};
         // 根据相应的clock条目进行布局的更新
         mIcon = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_icon);
         mIcon.setBackgroundResource(images[Integer.parseInt(mClock.getId())]);
@@ -85,7 +89,8 @@ public class EditClockFragment extends Fragment {
 
         cb_opened = (CheckBox) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_opened_cb);
         cb_opened.setChecked(mClock.isOpen());
-        tv_opened = (TextView) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_opened_text);
+        tv_opened = (TextView) view.findViewById(com.guanyin.sardar.pha.R.id
+                .edit_clock_opened_text);
         tv_opened.setText(mClock.isOpen() ? "开启" : "未开启");
         cb_opened.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -106,6 +111,7 @@ public class EditClockFragment extends Fragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(0, 0, 0, Integer.parseInt(time[0]), Integer.parseInt(time[1]));
                 TimePickerFragment timeDialog = TimePickerFragment.newInstance(calendar.getTime());
+                timeDialog.setStyle(R.style.AppTheme, Theme_DeviceDefault_Light_Dialog_Alert);
                 timeDialog.setTargetFragment(EditClockFragment.this, REQUEST_TIME);
                 timeDialog.show(manager, DIALOG_TIME);
             }
@@ -123,14 +129,16 @@ public class EditClockFragment extends Fragment {
         }
 
 
-        action_bar_back = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id.action_bar_return);
+        action_bar_back = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id
+                .action_bar_return);
         action_bar_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
             }
         });
-        action_bar_done = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id.action_bar_done);
+        action_bar_done = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id
+                .action_bar_done);
         action_bar_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,43 +187,55 @@ public class EditClockFragment extends Fragment {
         mClockLab.updateClock(mClock);
         // 添加闹钟到系统服务中
         if (wasOpened) {
+            // 之前就是开启
+            // 1.注销之前的闹钟
+            Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId(),
+                    mClock.getTitle(), mClock.getDate());
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
+                    intent, 0);
+            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
+                    .ALARM_SERVICE);
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
             if (mClock.isOpen()) {
-                // 获取第一次的时间间隔
-                Const.showToast(getActivity(), format(getFirstOffset()));
+                // 离开时仍是开启 则注册
+                registerAlarm();
             } else {
-                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId(),mClock.getTitle());
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
-                        intent, 0);
-                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
-                        .ALARM_SERVICE);
-                alarmManager.cancel(pendingIntent);
-                pendingIntent.cancel();
                 Const.showToast(getActivity(), mClock.getTitle() + "取消");
             }
         } else {
+            // 之前是未开启
             if (!mClock.isOpen()) {
+                // 离开时仍未开启
                 Const.showToast(getActivity(), mClock.getTitle() + "未开启");
             } else {
-                Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId(),mClock.getTitle());
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
-                        intent, 0);
-                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
-                        .ALARM_SERVICE);
-                long firstOffset = getFirstOffset();
-                alarmManager.set(AlarmManager.RTC_WAKEUP, 5000, pendingIntent);
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                        firstOffset+(System.currentTimeMillis()),
-                        24 * 60 * 60 * 1000,
-                        pendingIntent);
-                Const.showToast(getActivity(), format(firstOffset));
+                // 离开时开启 则注册
+                registerAlarm();
             }
         }
+    }
+
+    // 注册
+    private void registerAlarm() {
+        Intent intent = AlarmReceiver.newReceiver(getActivity(), mClock.getId(), mClock
+                .getTitle(), mClock.getDate());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0,
+                intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
+                .ALARM_SERVICE);
+        long firstOffset = getFirstOffset();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, 5000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                firstOffset + (System.currentTimeMillis()),
+                24 * 60 * 60 * 1000,
+                pendingIntent);
+        Const.showToast(getActivity(), format(firstOffset));
     }
 
     private long getFirstOffset() {
         // 获取第一次的时间间隔
         String[] time = mClock.getDate().split(":");
-        long firstTimeOffset = 5000;
+        long firstTimeOffset;
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -232,8 +252,8 @@ public class EditClockFragment extends Fragment {
 
     // 装换下一次间隔的毫秒数为小时、分钟的叙述
     private String format(long firstTimeOffset) {
-        int hour = 0;
-        int minutes = 0;
+        int hour;
+        int minutes;
         hour = (int) ((firstTimeOffset / 1000) / 60 / 60);
         minutes = (int) ((firstTimeOffset / 1000) / 60 % 60);
         StringBuilder sb = new StringBuilder();

@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.guanyin.sardar.pha.alert.database.ClockDbSchema.CLockTable;
-import com.guanyin.sardar.pha.model.Clock;
+import com.guanyin.sardar.pha.alert.model.Clock;
 
 // 这个类存在的意义是封装转换的方法
 public class ClockCursorWrapper extends CursorWrapper {

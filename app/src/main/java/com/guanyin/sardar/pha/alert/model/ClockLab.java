@@ -1,4 +1,4 @@
-package com.guanyin.sardar.pha.model;
+package com.guanyin.sardar.pha.alert.model;
 
 
 import android.content.ContentValues;

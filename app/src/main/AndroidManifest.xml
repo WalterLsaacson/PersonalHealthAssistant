@@ -3,6 +3,8 @@
           package="com.guanyin.sardar.pha">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
         <activity android:name=".FunctionActivity">
+
         </activity>
         <activity android:name=".EntranceActivity">
             <intent-filter>
@@ -20,8 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".alert.ClockEditActivity">
-        </activity>
-        <activity android:name=".test_other_function.SensorActivity">
         </activity>
 
         <receiver android:name=".alert.receiver.AlarmReceiver">
@@ -33,6 +34,11 @@
         <service android:name=".alert.service.MusicService"/>
 
         <activity android:name=".alert.receiver.AlarmReceiveActivity">
+
+        </activity>
+        <activity
+            android:name=".mine.EnterInfoActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
         </activity>
     </application>
 

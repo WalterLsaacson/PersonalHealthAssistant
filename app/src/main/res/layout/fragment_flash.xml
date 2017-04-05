@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name"
         android:scaleType="fitXY"
-        android:src="@drawable/bigfish"/>
+        android:src="@drawable/dogs"/>
 
     <TextView
         android:id="@+id/timeTextView"

@@ -5,9 +5,25 @@
     <string name="_3s">3s</string>
     <string name="icon">icon</string>
     <string name="time_picker_title">提醒时间：</string>
-    <string name="meticulous">細粒度</string>
-    <string name="rough">粗粒度</string>
-    <string name="lightRank">lightRank</string>
+    <string name="copy_that">朕知道了</string>
+    <string name="nick_name">点击设置昵称</string>
+    <string name="birth_year">出生年份</string>
+    <string name="sex">性别</string>
+    <string name="named">昵称</string>
+    <string name="year">1990年</string>
+    <string name="height">身高(CM)</string>
+    <string name="weight">体重(KG)</string>
+    <string name="cm">CM</string>
+    <string name="kg">KG</string>
+    <string name="my_name">关印</string>
+    <string name="male">男</string>
+    <string name="_1996">1996</string>
+    <string name="_65kg">65KG</string>
+    <string name="_175CM">175CM</string>
+    <string name="mine">我的</string>
+    <string name="foundtion_info">完善基本信息</string>
+    <string name="foundation">基本信息</string>
+    <string name="detail">详细信息</string>
 
 
 </resources>

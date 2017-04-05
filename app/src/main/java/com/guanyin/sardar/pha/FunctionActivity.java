@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.guanyin.sardar.pha.alert.AlertFragment;
 import com.guanyin.sardar.pha.fragments.FindFragment;
-import com.guanyin.sardar.pha.fragments.MineFragment;
+import com.guanyin.sardar.pha.mine.MineFragment;
 import com.guanyin.sardar.pha.fragments.StatusFragment;
+import com.guanyin.sardar.pha.mine.MineFragmentAdd;
 import com.guanyin.sardar.pha.utils.Const;
 
 public class FunctionActivity extends AppCompatActivity implements BottomNavigationBar
@@ -26,6 +28,10 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
 
     String TAG = "FunctionActivity";
 
+//    boolean display = true;
+//    float y1 = 0;
+//    float y2 = 0;
+
     BottomNavigationBar mBottomNavigationBar;
     //BottomNavigationItem
     BottomNavigationItem statusItem;
@@ -33,14 +39,18 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
     BottomNavigationItem alertItem;
     BottomNavigationItem mineItem;
 
-    int lastSelectedPosition = STATUS_FRAGMENT;
+//    int lastSelectedPosition = STATUS_FRAGMENT;
+    int lastSelectedPosition = MINE_FRAGMENT;
 
 
     StatusFragment mStatusFragment;
     FindFragment mFindFragment;
     AlertFragment mAlertFragment;
     MineFragment mMineFragment;
+    MineFragmentAdd mMineFragmentAddtional;
 
+    TextView tv_fragment_name;
+    String[] names;
 
     // 封装跳转到当前activity的方法
     // 后续可以给intent增加数据
@@ -53,6 +63,8 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.guanyin.sardar.pha.R.layout.activity_fuction);
+        tv_fragment_name = (TextView) findViewById(R.id.fragment_name);
+        names = new String[]{"今日状态","往昔表现","个性提醒","我的信息"};
         mBottomNavigationBar = (BottomNavigationBar) findViewById(com.guanyin.sardar.pha.R.id.bottom_navigation_bar);
 
         if (mBottomNavigationBar != null) {
@@ -102,10 +114,16 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
     private void setDefaultFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mStatusFragment = StatusFragment.newInstance();
-        transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mStatusFragment);
+//        mStatusFragment = StatusFragment.newInstance();
+//        transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mStatusFragment);
+//        transaction.commit();
+//        lastSelectedPosition = STATUS_FRAGMENT;
+        mMineFragment = MineFragment.newInstance();
+        mMineFragmentAddtional = MineFragmentAdd.newInstance();
+        transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mMineFragmentAddtional);
         transaction.commit();
-        lastSelectedPosition = STATUS_FRAGMENT;
+        lastSelectedPosition = MINE_FRAGMENT;
+        tv_fragment_name.setText(names[lastSelectedPosition]);
     }
 
     // 底部控件的点击事件
@@ -141,10 +159,14 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
                 if (mMineFragment == null) {
                     mMineFragment = MineFragment.newInstance();
                 }
-                transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mMineFragment);
+                if (mMineFragmentAddtional == null) {
+                    mMineFragmentAddtional = MineFragmentAdd.newInstance();
+                }
+                transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mMineFragmentAddtional);
                 lastSelectedPosition = MINE_FRAGMENT;
                 break;
         }
+        tv_fragment_name.setText(names[lastSelectedPosition]);
         transaction.commit();
     }
 
@@ -156,4 +178,34 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
     public void onTabReselected(int position) {
 
     }
+
+    // 监听手势以决定底部按钮的去留
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if (event.getAction() == MotionEvent.ACTION_DOWN){
+//            y1 = event.getY();
+//        }
+//        if (event.getAction() == MotionEvent.ACTION_UP){
+//            y2 = event.getY();
+//
+//            if (y1 - y2 > 50){
+//                // up
+//                Const.showToast(FunctionActivity.this,"上滑");
+//                if (display){
+//                    mBottomNavigationBar.setVisibility(View.INVISIBLE);
+//                    display = false;
+//                }
+//            }else if (y2 - y1 > 50){
+//                // down
+//                Const.showToast(FunctionActivity.this,"下滑");
+//                if (!display){
+//                    mBottomNavigationBar.setVisibility(View.VISIBLE);
+//                    display = true;
+//                }
+//            }
+//        }
+//
+//        return super.onTouchEvent(event);
+//    }
 }
