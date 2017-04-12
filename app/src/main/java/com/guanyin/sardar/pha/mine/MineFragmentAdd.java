@@ -1,6 +1,6 @@
 package com.guanyin.sardar.pha.mine;
 
-import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -23,8 +24,11 @@ import com.wx.wheelview.widget.WheelView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import static android.R.style.Theme_DeviceDefault_Light_Dialog_Alert;
+import static android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog;
+import static android.text.InputType.TYPE_CLASS_NUMBER;
 
 
 public class MineFragmentAdd extends Fragment {
@@ -65,6 +69,7 @@ public class MineFragmentAdd extends Fragment {
     private void initData() {
         mIndInfoLab = IndInfoLab.get(getActivity());
         sIndividualInfo = mIndInfoLab.getIndividualInfo();
+        Const.log("MineFragment", sIndividualInfo.toString());
         // 基本信息
         foundation_names = new ArrayList<>();
         foundation_content = new ArrayList<>();
@@ -81,22 +86,30 @@ public class MineFragmentAdd extends Fragment {
         // 详细信息
         detail_names = new ArrayList<>();
         detail_content = new ArrayList<>();
-        detail_names.add("腰围");
+        detail_names.add("腰围(CM)");
         detail_content.add(sIndividualInfo.getWaistLine());
-        detail_names.add("体温");
+        detail_names.add("体温(℃)");
         detail_content.add(sIndividualInfo.getTemperature());
-        detail_names.add("脉搏");
+        detail_names.add("脉搏(次/min)");
         detail_content.add(sIndividualInfo.getPulse());
-        detail_names.add("血压");
-        detail_content.add(sIndividualInfo.getBloodPressure());
-        detail_names.add("血糖");
+        detail_names.add("血压(收缩压mmHg)");
+        detail_content.add(sIndividualInfo.getSystolicPressure());
+        detail_names.add("血压(舒张压mmHg)");
+        detail_content.add(sIndividualInfo.getDiastolicPressure());
+        detail_names.add("血糖(mmol/L)");
         detail_content.add(sIndividualInfo.getBloodSugar());
-        detail_names.add("血脂");
-        detail_content.add(sIndividualInfo.getBloodFat());
+        detail_names.add("血脂(TC mmol/L)");
+        detail_content.add(sIndividualInfo.getTC());
+        detail_names.add("血脂(TG mmol/L)");
+        detail_content.add(sIndividualInfo.getTG());
+        detail_names.add("血脂(LDL_C mmol/L)");
+        detail_content.add(sIndividualInfo.getLDL_L());
+        detail_names.add("血脂(HDL_C mmol/L)");
+        detail_content.add(sIndividualInfo.getHDL_C());
     }
 
     private void initView(View view) {
-        RecyclerView foundation_recyclerView = (RecyclerView) view.findViewById(R.id
+        final RecyclerView foundation_recyclerView = (RecyclerView) view.findViewById(R.id
                 .foundation_info_recycle_view);
         foundation_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
@@ -157,6 +170,9 @@ public class MineFragmentAdd extends Fragment {
 
         RecyclerView detail_recyclerView = (RecyclerView) view.findViewById(R.id
                 .detail_info_recycle_view);
+        // disable recycleView scrolling
+//        CustomLayoutManager customLayoutManager = new CustomLayoutManager(getActivity());
+//        customLayoutManager.setEnableScrolled(false);
         detail_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
         detail_recyclerView.setHasFixedSize(true);
@@ -165,14 +181,95 @@ public class MineFragmentAdd extends Fragment {
         mDetailAdapter.setOnItemClickListener(new MyAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Const.log("DDDDDDDitemclick", position + "");
+//                enterDialog(position);
+                enterDialogSupportV7(position);
             }
         });
     }
 
-    private int inputDialog(final int position, final String petName) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                Theme_DeviceDefault_Light_Dialog_Alert);
+//    private void enterDialog(final int position) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+//                Theme_DeviceDefault_Light_Dialog_Alert);
+//        builder.setTitle("更新" + detail_names.get(position));
+//        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_input, null);
+//        final EditText enter = (EditText) view.findViewById(R.id.dialog_input);
+//        enter.setInputType(TYPE_CLASS_NUMBER);
+//        builder.setView(view);
+//        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                String newEnter = enter.getText().toString();
+//                if (!newEnter.equals("")) {
+//                    updateEnterInfo(position, newEnter);
+//                    detail_content.set(position, newEnter);
+//                    mDetailAdapter.notifyItemChanged(position);
+//                }
+//            }
+//        });
+//        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.cancel();
+//            }
+//        });
+//        builder.show();
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                //设置可获得焦点
+//                enter.setFocusable(true);
+//                enter.setFocusableInTouchMode(true);
+//                //请求获得焦点
+//                enter.requestFocus();
+//                //调用系统输入法
+//                InputMethodManager inputManager = (InputMethodManager) enter
+//                        .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputManager.showSoftInput(enter, 0);
+//            }
+//        }, 100);
+//    }
+
+    private void updateEnterInfo(int position, String newEnter) {
+        switch (position) {
+            case 0:
+                sIndividualInfo.setWaistLine(newEnter);
+                break;
+            case 1:
+                sIndividualInfo.setTemperature(newEnter);
+                break;
+            case 2:
+                sIndividualInfo.setPulse(newEnter);
+                break;
+            case 3:
+                sIndividualInfo.setSystolicPressure(newEnter);
+                break;
+            case 4:
+                sIndividualInfo.setDiastolicPressure(newEnter);
+                break;
+            case 5:
+                sIndividualInfo.setBloodSugar(newEnter);
+                break;
+            case 6:
+                sIndividualInfo.setTC(newEnter);
+                break;
+            case 7:
+                sIndividualInfo.setTG(newEnter);
+                break;
+            case 8:
+                sIndividualInfo.setLDL_L(newEnter);
+                break;
+            case 9:
+                sIndividualInfo.setHDL_C(newEnter);
+                break;
+        }
+    }
+
+    private void inputDialog(final int position, final String petName) {
+//        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+//                Theme_DeviceDefault_Light_Dialog_Alert);
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app
+                .AlertDialog.Builder(getActivity(), Theme_AppCompat_Light_Dialog);
         builder.setTitle(petName);
         // Set up the input
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_input, null);
@@ -200,12 +297,28 @@ public class MineFragmentAdd extends Fragment {
             }
         });
         builder.show();
-        return 0;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //设置可获得焦点
+                input.setFocusable(true);
+                input.setFocusableInTouchMode(true);
+                //请求获得焦点
+                input.requestFocus();
+                //调用系统输入法
+                InputMethodManager inputManager = (InputMethodManager) input
+                        .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.showSoftInput(input, 0);
+            }
+        }, 100);
     }
 
     private int sexSelectDialog(final int position, final String petName) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                Theme_DeviceDefault_Light_Dialog_Alert);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+//                Theme_DeviceDefault_Light_Dialog_Alert);
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app
+                .AlertDialog.Builder(getActivity(), Theme_AppCompat_Light_Dialog);
         builder.setTitle(petName);
         // Set up the input
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_select, null);
@@ -238,8 +351,10 @@ public class MineFragmentAdd extends Fragment {
 
     private int wheelViewDialog(final int position, final String petName, final List<String> years,
                                 int initPosition) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
-                Theme_DeviceDefault_Light_Dialog_Alert);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+//                Theme_DeviceDefault_Light_Dialog_Alert);
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app
+                .AlertDialog.Builder(getActivity(), Theme_AppCompat_Light_Dialog);
         builder.setTitle(petName);
         // Set up the input
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_wheel, null);
@@ -291,6 +406,67 @@ public class MineFragmentAdd extends Fragment {
     public void onStop() {
         mIndInfoLab.updateInfo(sIndividualInfo);
         super.onStop();
+    }
+
+    // 内部类用于实现禁止recycleView滑动
+//    private class CustomLayoutManager extends LinearLayoutManager {
+//
+//        private boolean isEnableScrolled;
+//
+//        CustomLayoutManager(Context context) {
+//            super(context);
+//        }
+//
+//        void setEnableScrolled(boolean isEnableScrolled) {
+//            this.isEnableScrolled = isEnableScrolled;
+//        }
+//
+//        @Override
+//        public boolean canScrollVertically() {
+//            return isEnableScrolled && super.canScrollVertically();
+//        }
+//    }
+    private void enterDialogSupportV7(final int position) {
+        android.support.v7.app.AlertDialog.Builder builderV7 = new android.support.v7.app
+                .AlertDialog.Builder(getActivity(), Theme_AppCompat_Light_Dialog);
+        builderV7.setTitle("更新" + detail_names.get(position));
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_input, null);
+        final EditText enter = (EditText) view.findViewById(R.id.dialog_input);
+        enter.setInputType(TYPE_CLASS_NUMBER);
+        builderV7.setView(view);
+        builderV7.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String newEnter = enter.getText().toString();
+                if (!newEnter.equals("")) {
+                    updateEnterInfo(position, newEnter);
+                    detail_content.set(position, newEnter);
+                    mDetailAdapter.notifyItemChanged(position);
+                }
+            }
+        });
+        builderV7.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builderV7.show();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //设置可获得焦点
+                enter.setFocusable(true);
+                enter.setFocusableInTouchMode(true);
+                //请求获得焦点
+                enter.requestFocus();
+                //调用系统输入法
+                InputMethodManager inputManager = (InputMethodManager) enter
+                        .getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.showSoftInput(enter, 0);
+            }
+        }, 100);
     }
 
 }

@@ -17,10 +17,127 @@ public class IndividualInfo implements Serializable {
     private String waistLine;
     private String temperature;
     private String pulse;
-    private String bloodPressure;
+    private String systolicPressure;
+    private String diastolicPressure;
     private String bloodSugar;
-    private String bloodFat;
+    private String TC;
+    private String TG;
+    private String LDL_L;
+    private String HDL_C;
 
+    // 第三次增加
+    private String waterIntake;
+    private String sleepTime;
+    private String runDuration;
+    private String healthMark;
+
+    public String getTC() {
+        return TC;
+    }
+
+    public void setTC(String TC) {
+        this.TC = TC;
+    }
+
+    public String getTG() {
+        return TG;
+    }
+
+    public void setTG(String TG) {
+        this.TG = TG;
+    }
+
+    public String getLDL_L() {
+        return LDL_L;
+    }
+
+    public void setLDL_L(String LDL_L) {
+        this.LDL_L = LDL_L;
+    }
+
+    public String getHDL_C() {
+        return HDL_C;
+    }
+
+    public void setHDL_C(String HDL_C) {
+        this.HDL_C = HDL_C;
+    }
+
+    public String getSystolicPressure() {
+        return systolicPressure;
+    }
+
+    public void setSystolicPressure(String systolicPressure) {
+        this.systolicPressure = systolicPressure;
+    }
+
+    public String getDiastolicPressure() {
+        return diastolicPressure;
+    }
+
+    public void setDiastolicPressure(String diastolicPressure) {
+        this.diastolicPressure = diastolicPressure;
+    }
+
+    @Override
+    public String toString() {
+        return "IndividualInfo{" +
+                "age='" + age + '\'' +
+                ", sex='" + sex + '\'' +
+                ", petName='" + petName + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", id='" + id + '\'' +
+                ", BMI='" + BMI + '\'' +
+                ", BFR='" + BFR + '\'' +
+                ", waistLine='" + waistLine + '\'' +
+                ", temperature='" + temperature + '\'' +
+                ", pulse='" + pulse + '\'' +
+                ", systolicPressure='" + systolicPressure + '\'' +
+                ", diastolicPressure='" + diastolicPressure + '\'' +
+                ", bloodSugar='" + bloodSugar + '\'' +
+                ", TC='" + TC + '\'' +
+                ", TG='" + TG + '\'' +
+                ", LDL_L='" + LDL_L + '\'' +
+                ", HDL_C='" + HDL_C + '\'' +
+                ", waterIntake='" + waterIntake + '\'' +
+                ", sleepTime='" + sleepTime + '\'' +
+                ", runDuration='" + runDuration + '\'' +
+                ", healthMark='" + healthMark + '\'' +
+                '}';
+    }
+
+    public String getHealthMark() {
+        return healthMark;
+    }
+
+    public void setHealthMark(String healthMark) {
+        this.healthMark = healthMark;
+    }
+
+    public String getWaterIntake() {
+        return waterIntake;
+    }
+
+    public void setWaterIntake(String waterIntake) {
+        this.waterIntake = waterIntake;
+    }
+
+    public String getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(String sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public String getRunDuration() {
+        return runDuration;
+    }
+
+    public void setRunDuration(String runDuration) {
+        this.runDuration = runDuration;
+    }
 
     public String getBMI() {
         return BMI;
@@ -62,13 +179,6 @@ public class IndividualInfo implements Serializable {
         this.pulse = pulse;
     }
 
-    public String getBloodPressure() {
-        return bloodPressure;
-    }
-
-    public void setBloodPressure(String bloodPressure) {
-        this.bloodPressure = bloodPressure;
-    }
 
     public String getBloodSugar() {
         return bloodSugar;
@@ -78,13 +188,6 @@ public class IndividualInfo implements Serializable {
         this.bloodSugar = bloodSugar;
     }
 
-    public String getBloodFat() {
-        return bloodFat;
-    }
-
-    public void setBloodFat(String bloodFat) {
-        this.bloodFat = bloodFat;
-    }
 
     public String getId() {
         return id;
@@ -132,16 +235,5 @@ public class IndividualInfo implements Serializable {
 
     public void setWeight(String weight) {
         this.weight = weight;
-    }
-
-    @Override
-    public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("petname" + petName);
-        stringBuffer.append("sex" + sex);
-        stringBuffer.append("age" + age);
-        stringBuffer.append("height" + height);
-        stringBuffer.append("weight" + weight);
-        return stringBuffer.toString();
     }
 }

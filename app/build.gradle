@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.guanyin.sardar.personalhealthassistant"
-        minSdkVersion 23
+        minSdkVersion 18
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -24,7 +24,8 @@ dependencies {
     compile 'com.ashokvarma.android:bottom-navigation-bar:1.3.0'
     compile 'com.android.support:recyclerview-v7:25.3.0'
     compile 'com.android.support:appcompat-v7:25.3.0'
-    testCompile 'junit:junit:4.12'
     compile 'com.wx.wheelview:wheelview:1.3.3'
     compile 'net.zetetic:android-database-sqlcipher:3.4.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }

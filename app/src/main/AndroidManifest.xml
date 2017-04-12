@@ -12,10 +12,11 @@
         android:label="@string/app_name_shorter"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
-        <activity android:name=".FunctionActivity">
-
+        <activity
+            android:name=".entrance.FunctionActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
         </activity>
-        <activity android:name=".EntranceActivity">
+        <activity android:name=".entrance.EntranceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -34,11 +35,16 @@
         <service android:name=".alert.service.MusicService"/>
 
         <activity android:name=".alert.receiver.AlarmReceiveActivity">
-
         </activity>
         <activity
             android:name=".mine.EnterInfoActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+        </activity>
+        <activity
+            android:name=".customview.CustomViewActivity"
+            android:label="@string/title_activity_custom_view"
+            android:theme="@style/NoActionBarTheme">
+
         </activity>
     </application>
 

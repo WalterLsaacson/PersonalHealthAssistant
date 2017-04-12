@@ -1,4 +1,4 @@
-package com.guanyin.sardar.pha;
+package com.guanyin.sardar.pha.entrance;
 
 import android.support.v4.app.Fragment;
 

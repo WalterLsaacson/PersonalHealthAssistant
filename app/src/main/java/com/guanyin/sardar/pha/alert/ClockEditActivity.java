@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
-import com.guanyin.sardar.pha.FunctionActivity;
 import com.guanyin.sardar.pha.utils.SingleFragmentActivity;
 
 public class ClockEditActivity extends SingleFragmentActivity {

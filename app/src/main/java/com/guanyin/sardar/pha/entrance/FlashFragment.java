@@ -1,6 +1,7 @@
-package com.guanyin.sardar.pha;
+package com.guanyin.sardar.pha.entrance;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -11,10 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.guanyin.sardar.pha.mine.EnterInfoActivity;
-import com.guanyin.sardar.pha.utils.MyApplication;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class FlashFragment extends Fragment {
@@ -26,7 +28,6 @@ public class FlashFragment extends Fragment {
     Intent intent;
 
     TextView timeTextView;
-    MyApplication mApplication;
 
     @Nullable
     @Override
@@ -35,10 +36,6 @@ public class FlashFragment extends Fragment {
 
         View view = inflater.inflate(com.guanyin.sardar.pha.R.layout.fragment_flash, container,
                 false);
-        // 获取application的实例
-        if (mApplication == null) {
-            mApplication = MyApplication.getInstance();
-        }
         // 设置文字递减
         mCountDownTimer.start();
         // 设置点击跳过当前activity
@@ -65,16 +62,22 @@ public class FlashFragment extends Fragment {
         return view;
     }
 
-    // TODO 添加服务器之后 可以进行登录状态的判断 然后跳转不同的activity
     // 录入用户数据或者已经录入现在直接进入主界面
     public void toAnotherActivity() {
-        if (MyApplication.initApp++ == 1) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("initApp",
+                MODE_PRIVATE);
+        int init = sharedPreferences.getInt("initApp", 0);
+        if (init == 0) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("initApp", 1);
+            editor.apply();
             intent = EnterInfoActivity.newIntent(getActivity());
             startActivity(intent);
         } else {
             intent = FunctionActivity.newIntent(getActivity());
             startActivity(intent);
         }
+
     }
 
     // 文本倒计时动态变化的实现

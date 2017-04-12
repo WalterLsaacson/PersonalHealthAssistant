@@ -9,16 +9,24 @@ import net.sqlcipher.database.SQLiteOpenHelper;
 
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.AGE;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.BFR;
-import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.BLOODFAT;
-import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.BLOODPRESSURE;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.BLOODSUGAR;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.BMI;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.DIASTOLICPRESSURE;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.HDL_C;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.HEALTHMARK;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.HEIGHT;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.ID;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.LDL_C;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.PULSE;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.RUNDURATION;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.SEX;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.SLEEPTIME;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.SYSTOLICRESSURE;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.TC;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.TEMPERATURE;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.TG;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.WAISTLINE;
+import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.WATERINTAKE;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.Cols.WEIGHT;
 import static com.guanyin.sardar.pha.mine.database.InfoDbSchema.InfoTable.NAME;
 
@@ -66,14 +74,25 @@ public class InfoCipherHelper extends SQLiteOpenHelper {
                 WAISTLINE + "," +
                 TEMPERATURE + "," +
                 PULSE + "," +
-                BLOODPRESSURE + "," +
+                SYSTOLICRESSURE + "," +
+                DIASTOLICPRESSURE + "," +
                 BLOODSUGAR + "," +
-                BLOODFAT + "," +
+                TC + "," +
+                TG + "," +
+                LDL_C + "," +
+                HDL_C + "," +
+                WATERINTAKE + "," +
+                SLEEPTIME + "," +
+                RUNDURATION + "," +
+                HEALTHMARK + "," +
                 ID +
                 ")"
         );
         db.execSQL("insert into " + NAME
-                + " values('关印','21','男','178','65','','','','','','','','','0')"
+                + " values('','21','男','178','65','','','88.5','37','80','125'," +
+                "'84','6.02','4.05','1.55','1.44','2.59'," +
+                "'',''," + "'',''," +
+                "'0')"
         );
     }
 

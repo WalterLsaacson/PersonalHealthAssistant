@@ -4,6 +4,25 @@
     <color name="colorPrimaryDark">@color/midnightblue</color>
     <color name="colorAccent">#ffffff</color>
 
+    <!-- 网易云音乐的配色-->
+    <color name="first">#f47d00</color>
+    <color name="second">#f34334</color>
+    <color name="third">#e71e62</color>
+    <color name="forth">#c11859</color>
+    <color name="fifth">#fea000</color>
+    <color name="sixth">#b7c500</color>
+    <color name="seventh">#89c348</color>
+    <color name="eighth">#4baf4f</color>
+    <color name="ninth">#009687</color>
+    <color name="tenth">#9b27ae</color>
+    <color name="eleventh">#663ab5</color>
+    <color name="twelfth">#3d51b4</color>
+    <color name="thirteen">#1f96f2</color>
+    <color name="fourteen">#00bcd2</color>
+
+    <color name="eye_green">#c7edcc</color>
+
+
 
     <color name="white">#FFFFFF</color><!--白色 -->
     <!--象牙色 -->

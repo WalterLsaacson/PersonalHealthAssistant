@@ -1,4 +1,4 @@
-package com.guanyin.sardar.pha;
+package com.guanyin.sardar.pha.entrance;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,14 +8,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.guanyin.sardar.pha.R;
 import com.guanyin.sardar.pha.alert.AlertFragment;
 import com.guanyin.sardar.pha.fragments.FindFragment;
 import com.guanyin.sardar.pha.mine.MineFragment;
-import com.guanyin.sardar.pha.fragments.StatusFragment;
 import com.guanyin.sardar.pha.mine.MineFragmentAdd;
+import com.guanyin.sardar.pha.status.StatusFragment;
 import com.guanyin.sardar.pha.utils.Const;
 
 public class FunctionActivity extends AppCompatActivity implements BottomNavigationBar
@@ -39,8 +39,7 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
     BottomNavigationItem alertItem;
     BottomNavigationItem mineItem;
 
-//    int lastSelectedPosition = STATUS_FRAGMENT;
-    int lastSelectedPosition = MINE_FRAGMENT;
+    int lastSelectedPosition = STATUS_FRAGMENT;
 
 
     StatusFragment mStatusFragment;
@@ -94,22 +93,22 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
     //    添加角标
     //    BadgeItem badgeItem = new BadgeItem().setBackgroundColor(Color.RED).setText("23")
     //            .setHideOnSelect(true);
-    public void addBadgeItem(BadgeItem badgeItem,int whichItem){
-        switch (whichItem){
-            case 0:
-                statusItem.setBadgeItem(badgeItem);
-                break;
-            case 1:
-                findItem.setBadgeItem(badgeItem);
-                break;
-            case 2:
-                alertItem.setBadgeItem(badgeItem);
-                break;
-            case 3:
-                mineItem.setBadgeItem(badgeItem);
-                break;
-        }
-    }
+//    public void addBadgeItem(BadgeItem badgeItem,int whichItem){
+//        switch (whichItem){
+//            case 0:
+//                statusItem.setBadgeItem(badgeItem);
+//                break;
+//            case 1:
+//                findItem.setBadgeItem(badgeItem);
+//                break;
+//            case 2:
+//                alertItem.setBadgeItem(badgeItem);
+//                break;
+//            case 3:
+//                mineItem.setBadgeItem(badgeItem);
+//                break;
+//        }
+//    }
     // 设置默认展示的fragment
     private void setDefaultFragment() {
         FragmentManager fm = getSupportFragmentManager();
@@ -118,11 +117,10 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
 //        transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mStatusFragment);
 //        transaction.commit();
 //        lastSelectedPosition = STATUS_FRAGMENT;
-        mMineFragment = MineFragment.newInstance();
-        mMineFragmentAddtional = MineFragmentAdd.newInstance();
-        transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mMineFragmentAddtional);
+        StatusFragment statusFragment = StatusFragment.newInstance();
+        transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, statusFragment);
         transaction.commit();
-        lastSelectedPosition = MINE_FRAGMENT;
+        lastSelectedPosition = STATUS_FRAGMENT;
         tv_fragment_name.setText(names[lastSelectedPosition]);
     }
 

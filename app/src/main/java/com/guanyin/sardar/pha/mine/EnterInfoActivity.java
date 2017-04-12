@@ -10,13 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.guanyin.sardar.pha.FunctionActivity;
+import com.guanyin.sardar.pha.entrance.FunctionActivity;
 import com.guanyin.sardar.pha.R;
 import com.guanyin.sardar.pha.mine.model.IndInfoLab;
 import com.guanyin.sardar.pha.mine.model.IndividualInfo;
 import com.guanyin.sardar.pha.utils.Const;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
 

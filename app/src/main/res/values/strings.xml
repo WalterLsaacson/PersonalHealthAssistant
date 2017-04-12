@@ -6,7 +6,7 @@
     <string name="icon">icon</string>
     <string name="time_picker_title">提醒时间：</string>
     <string name="copy_that">朕知道了</string>
-    <string name="nick_name">点击设置昵称</string>
+    <string name="nick_name">设置昵称</string>
     <string name="birth_year">出生年份</string>
     <string name="sex">性别</string>
     <string name="named">昵称</string>
@@ -24,6 +24,17 @@
     <string name="foundtion_info">完善基本信息</string>
     <string name="foundation">基本信息</string>
     <string name="detail">详细信息</string>
+    <string name="title_activity_custom_view">CustomViewActivity</string>
+    <string name="today_health_mark">我的健康指数</string>
+    <string name="today_water">饮水</string>
+    <string name="ml">ML</string>
+    <string name="today_sleep">睡眠</string>
+    <string name="keep_hard">仍需努力</string>
+    <string name="hour">小时</string>
+    <string name="min">分钟</string>
+    <string name="sport">活动</string>
+    <string name="step">步</string>
+    <string name="new_values">请输入新值</string>
 
 
 </resources>

@@ -13,13 +13,11 @@ public class IndInfoLab {
 
     private static IndInfoLab sIndInfoLab;
 
-    // 声明数据库字段
-    private Context mContext;
     private SQLiteDatabase mSQLiteDatabase;
 
     private IndInfoLab(Context context) {
-        mContext = context.getApplicationContext();
-        mSQLiteDatabase = new InfoCipherHelper(mContext).getWritableDatabase("guanyin");
+        Context context1 = context.getApplicationContext();
+        mSQLiteDatabase = new InfoCipherHelper(context1).getWritableDatabase("guanyin");
     }
 
     public static IndInfoLab get(Context context) {
@@ -30,7 +28,7 @@ public class IndInfoLab {
     }
 
     // 从游标拿到数据库内容并转换为IndividualInfo对象
-    public  IndividualInfo getIndividualInfo() {
+    public IndividualInfo getIndividualInfo() {
         InfoCursorWrapper cursorWrapper = queryInfo(null, null);
         cursorWrapper.moveToFirst();
         IndividualInfo mIndividualInfo = cursorWrapper.getInfo();
@@ -41,7 +39,8 @@ public class IndInfoLab {
 
     // 从数据库中拿到游标
     private InfoCursorWrapper queryInfo(String whereClause, String[] whereArgs) {
-        Cursor cursor = mSQLiteDatabase.query("info", null, whereClause, whereArgs,
+        Cursor cursor = mSQLiteDatabase.query(InfoDbSchema.InfoTable.NAME, null, whereClause,
+                whereArgs,
                 null, null, null);
         return new InfoCursorWrapper(cursor);
     }
@@ -50,8 +49,8 @@ public class IndInfoLab {
         String idString = individualInfo.getId();
         ContentValues values = getContentValues(individualInfo);
 
-        // TODO: 2017/4/2 多人使用的场景
-        mSQLiteDatabase.update(InfoDbSchema.InfoTable.NAME,values,InfoDbSchema.InfoTable.Cols.ID+ " = ?", new
+        mSQLiteDatabase.update(InfoDbSchema.InfoTable.NAME, values, InfoDbSchema.InfoTable.Cols
+                .ID + " = ?", new
                 String[]{idString});
     }
 
@@ -68,9 +67,19 @@ public class IndInfoLab {
         values.put(InfoDbSchema.InfoTable.Cols.WAISTLINE, individualInfo.getWaistLine());
         values.put(InfoDbSchema.InfoTable.Cols.TEMPERATURE, individualInfo.getTemperature());
         values.put(InfoDbSchema.InfoTable.Cols.PULSE, individualInfo.getPulse());
-        values.put(InfoDbSchema.InfoTable.Cols.BLOODPRESSURE, individualInfo.getBloodPressure());
+        values.put(InfoDbSchema.InfoTable.Cols.SYSTOLICRESSURE, individualInfo
+                .getSystolicPressure());
+        values.put(InfoDbSchema.InfoTable.Cols.DIASTOLICPRESSURE, individualInfo
+                .getDiastolicPressure());
         values.put(InfoDbSchema.InfoTable.Cols.BLOODSUGAR, individualInfo.getBloodSugar());
-        values.put(InfoDbSchema.InfoTable.Cols.BLOODFAT, individualInfo.getBloodFat());
+        values.put(InfoDbSchema.InfoTable.Cols.TC, individualInfo.getTC());
+        values.put(InfoDbSchema.InfoTable.Cols.TG, individualInfo.getTG());
+        values.put(InfoDbSchema.InfoTable.Cols.LDL_C, individualInfo.getLDL_L());
+        values.put(InfoDbSchema.InfoTable.Cols.HDL_C, individualInfo.getHDL_C());
+        values.put(InfoDbSchema.InfoTable.Cols.WATERINTAKE, individualInfo.getWaterIntake());
+        values.put(InfoDbSchema.InfoTable.Cols.SLEEPTIME, individualInfo.getSleepTime());
+        values.put(InfoDbSchema.InfoTable.Cols.RUNDURATION, individualInfo.getRunDuration());
+        values.put(InfoDbSchema.InfoTable.Cols.HEALTHMARK, individualInfo.getHealthMark());
         return values;
     }
 }
