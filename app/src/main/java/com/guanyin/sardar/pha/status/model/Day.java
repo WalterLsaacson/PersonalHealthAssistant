@@ -1,52 +1,58 @@
 package com.guanyin.sardar.pha.status.model;
 
 
-
 public class Day {
-    private String date;
-    private String water;
-    private String sleep;
-    private String sport;
+    private int date;
+    private int water;
+    private int sleep;
+    private int step;
+
+    public Day(int date) {
+        this.date = date;
+    }
+
+    public Day() {
+    }
 
     @Override
     public String toString() {
         return "Day{" +
                 "date='" + date + '\'' +
-                ", water='" + water + '\'' +
-                ", sleep='" + sleep + '\'' +
-                ", sport='" + sport + '\'' +
+                ", water=" + water +
+                ", sleep=" + sleep +
+                ", step=" + step +
                 '}';
     }
 
-    public String getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(int date) {
         this.date = date;
     }
 
-    public String getWater() {
+    public int getWater() {
         return water;
     }
 
-    public void setWater(String water) {
+    public void setWater(int water) {
         this.water = water;
     }
 
-    public String getSleep() {
+    public int getSleep() {
         return sleep;
     }
 
-    public void setSleep(String sleep) {
+    public void setSleep(int sleep) {
         this.sleep = sleep;
     }
 
-    public String getSport() {
-        return sport;
+    public int getStep() {
+        return step;
     }
 
-    public void setSport(String sport) {
-        this.sport = sport;
+    public void setStep(int step) {
+        this.step = step;
     }
 }

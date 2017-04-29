@@ -2,6 +2,7 @@ package com.guanyin.sardar.pha.mine;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import com.guanyin.sardar.pha.R;
 import com.guanyin.sardar.pha.mine.model.IndInfoLab;
 import com.guanyin.sardar.pha.mine.model.IndividualInfo;
 import com.guanyin.sardar.pha.utils.Const;
+import com.guanyin.sardar.pha.utils.MyApplication;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
 
@@ -28,7 +30,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog;
-import static android.text.InputType.TYPE_CLASS_NUMBER;
+import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 
 
 public class MineFragmentAdd extends Fragment {
@@ -44,6 +46,8 @@ public class MineFragmentAdd extends Fragment {
 
     ArrayList<String> detail_names;
     ArrayList<String> detail_content;
+    Calendar mCalendar = Calendar.getInstance();
+    int currentYear = mCalendar.get(Calendar.YEAR);
 
     public static MineFragmentAdd newInstance() {
 
@@ -77,8 +81,9 @@ public class MineFragmentAdd extends Fragment {
         foundation_content.add(sIndividualInfo.getPetName());
         foundation_names.add("性别");
         foundation_content.add(sIndividualInfo.getSex());
-        foundation_names.add("年龄");
-        foundation_content.add(sIndividualInfo.getAge());
+        foundation_names.add("出生年份");
+        int age = Integer.parseInt(sIndividualInfo.getAge());
+        foundation_content.add(currentYear - age + "");
         foundation_names.add("身高(CM)");
         foundation_content.add(sIndividualInfo.getHeight());
         foundation_names.add("体重(KG)");
@@ -88,8 +93,6 @@ public class MineFragmentAdd extends Fragment {
         detail_content = new ArrayList<>();
         detail_names.add("腰围(CM)");
         detail_content.add(sIndividualInfo.getWaistLine());
-        detail_names.add("体温(℃)");
-        detail_content.add(sIndividualInfo.getTemperature());
         detail_names.add("脉搏(次/min)");
         detail_content.add(sIndividualInfo.getPulse());
         detail_names.add("血压(收缩压mmHg)");
@@ -100,12 +103,6 @@ public class MineFragmentAdd extends Fragment {
         detail_content.add(sIndividualInfo.getBloodSugar());
         detail_names.add("血脂(TC mmol/L)");
         detail_content.add(sIndividualInfo.getTC());
-        detail_names.add("血脂(TG mmol/L)");
-        detail_content.add(sIndividualInfo.getTG());
-        detail_names.add("血脂(LDL_C mmol/L)");
-        detail_content.add(sIndividualInfo.getLDL_L());
-        detail_names.add("血脂(HDL_C mmol/L)");
-        detail_content.add(sIndividualInfo.getHDL_C());
     }
 
     private void initView(View view) {
@@ -121,24 +118,24 @@ public class MineFragmentAdd extends Fragment {
             public void onItemClick(View view, int position) {
                 switch (position) {
                     case 0:
-                        inputDialog(position, "修改昵称");
+                        inputDialog(position, "更新" + foundation_names.get(position));
                         break;
                     case 1:
-                        sexSelectDialog(position, "更新性别");
+                        sexSelectDialog(position, "更新" + foundation_names.get(position));
                         break;
                     case 2:
-                        int initYear = Integer.parseInt(sIndividualInfo.getAge());
+                        int initYear = Integer.parseInt(foundation_content.get(position));
                         int initYPosition = 0;
                         List<String> years = new ArrayList<>();
-                        Calendar calendar = Calendar.getInstance();
-                        final int currentYear = calendar.get(Calendar.YEAR) - 3;
-                        for (int i = 1980; i <= currentYear; i++) {
+                        int currentYear1 = currentYear - 18;
+                        for (int i = 1940; i <= currentYear1; i++) {
                             years.add(i + "");
                             if (i == initYear) {
                                 initYPosition = years.size() - 1;
                             }
                         }
-                        wheelViewDialog(position, "生日修改", years, initYPosition);
+                        wheelViewDialog(position, "更新" + foundation_names.get(position), years,
+                                initYPosition);
                         break;
                     case 3:
                         int initHeight = Integer.parseInt(sIndividualInfo.getHeight());
@@ -150,7 +147,8 @@ public class MineFragmentAdd extends Fragment {
                                 initHPosition = height.size() - 1;
                             }
                         }
-                        wheelViewDialog(position, "身高修改", height, initHPosition);
+                        wheelViewDialog(position, "更新" + foundation_names.get(position), height,
+                                initHPosition);
                         break;
                     case 4:
                         int initWeight = Integer.parseInt(sIndividualInfo.getWeight());
@@ -162,7 +160,8 @@ public class MineFragmentAdd extends Fragment {
                                 initWPosition = weight.size() - 1;
                             }
                         }
-                        wheelViewDialog(position, "体重修改", weight, initWPosition);
+                        wheelViewDialog(position, "更新" + foundation_names.get(position), weight,
+                                initWPosition);
                         break;
                 }
             }
@@ -200,7 +199,7 @@ public class MineFragmentAdd extends Fragment {
 //            public void onClick(DialogInterface dialog, int which) {
 //                String newEnter = enter.getText().toString();
 //                if (!newEnter.equals("")) {
-//                    updateEnterInfo(position, newEnter);
+//                    updateDetailInfo(position, newEnter);
 //                    detail_content.set(position, newEnter);
 //                    mDetailAdapter.notifyItemChanged(position);
 //                }
@@ -230,40 +229,6 @@ public class MineFragmentAdd extends Fragment {
 //        }, 100);
 //    }
 
-    private void updateEnterInfo(int position, String newEnter) {
-        switch (position) {
-            case 0:
-                sIndividualInfo.setWaistLine(newEnter);
-                break;
-            case 1:
-                sIndividualInfo.setTemperature(newEnter);
-                break;
-            case 2:
-                sIndividualInfo.setPulse(newEnter);
-                break;
-            case 3:
-                sIndividualInfo.setSystolicPressure(newEnter);
-                break;
-            case 4:
-                sIndividualInfo.setDiastolicPressure(newEnter);
-                break;
-            case 5:
-                sIndividualInfo.setBloodSugar(newEnter);
-                break;
-            case 6:
-                sIndividualInfo.setTC(newEnter);
-                break;
-            case 7:
-                sIndividualInfo.setTG(newEnter);
-                break;
-            case 8:
-                sIndividualInfo.setLDL_L(newEnter);
-                break;
-            case 9:
-                sIndividualInfo.setHDL_C(newEnter);
-                break;
-        }
-    }
 
     private void inputDialog(final int position, final String petName) {
 //        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
@@ -284,7 +249,7 @@ public class MineFragmentAdd extends Fragment {
                 String newText;
                 newText = input.getText().toString();
                 if (!newText.equals("")) {
-                    updateIndividualInfo(petName, newText);
+                    updateFoundationInfo(petName, newText);
                     foundation_content.set(position, newText);
                     mFoundationAdapter.notifyItemChanged(position);
                 }
@@ -370,7 +335,7 @@ public class MineFragmentAdd extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int wheelViewCurrentPosition = wheelView.getCurrentPosition();
-                updateIndividualInfo(petName, years.get(wheelViewCurrentPosition));
+                updateFoundationInfo(petName, years.get(wheelViewCurrentPosition));
                 foundation_content.set(position, years.get(wheelViewCurrentPosition));
                 mFoundationAdapter.notifyItemChanged(position);
             }
@@ -385,22 +350,146 @@ public class MineFragmentAdd extends Fragment {
         return 0;
     }
 
-    private void updateIndividualInfo(String petName, String newText) {
+
+    private void updateFoundationInfo(String petName, String newText) {
         switch (petName) {
-            case "修改昵称":
+            case "更新昵称":
                 sIndividualInfo.setPetName(newText);
                 break;
-            case "生日修改":
-                sIndividualInfo.setAge(newText);
+            case "更新出生年份":
+                int birthYear = Integer.parseInt(newText);
+                sIndividualInfo.setAge(currentYear - birthYear + "");
                 break;
-            case "身高修改":
+            case "更新身高(CM)":
                 sIndividualInfo.setHeight(newText);
+                updateStepDuration();
                 break;
-            case "体重修改":
+            case "更新体重(KG)":
                 sIndividualInfo.setWeight(newText);
+                updateHealthMark();
                 break;
         }
     }
+
+    private void updateStepDuration() {
+        int age = Integer.parseInt(sIndividualInfo.getAge());
+        if (age <= 17) {
+            sIndividualInfo.setRunDuration(60);
+        } else if (age < 65) {
+            sIndividualInfo.setRunDuration(200);
+        } else {
+            sIndividualInfo.setRunDuration(150);
+        }
+    }
+
+    private void updateHealthMark() {
+        // 重新计算腰围的合理范围并打分
+        // 适用于身高，体重，腰围的变化
+
+        MyApplication myApplication = MyApplication.getInstance();
+        StringBuilder stringBuffer = new StringBuilder();
+        int healthMark = 100;
+        // 进行体型的建议
+        if (!sIndividualInfo.getWaistLine().equals("")) {
+            double waist = Integer.parseInt(sIndividualInfo.getWaistLine());
+            double weight = Integer.parseInt(sIndividualInfo.getWeight());
+            int age = Integer.parseInt(sIndividualInfo.getAge());
+            if (sIndividualInfo.getSex().equals("女")) {
+                double a = waist * 0.74;
+                double b = (weight * 0.082) + 34.89;
+                double result = (a - b) / weight;
+                if (age > 30) {
+                    if (result < 0.17) {
+                        // 扣2分 瘦 提示
+                        healthMark = healthMark - 15;
+                        stringBuffer.append("体型较瘦，建议您调节饮食。");
+                    } else if (result < 0.2) {
+                        // 扣1分 偏瘦
+                        healthMark = healthMark - 5;
+                    } else if (result < 0.27) {
+                        // 满分
+                    } else if (result < 0.3) {
+                        // 扣1分 微胖
+                        healthMark = healthMark - 5;
+                    } else {
+                        // 扣2分 胖
+                        healthMark = healthMark - 20;
+                        sIndividualInfo.setRunDuration(sIndividualInfo.getRunDuration() + 10);
+                        stringBuffer.append("体型较胖，建议您多运动。");
+                    }
+                } else {
+                    if (result < 0.14) {
+                        // 扣2分 瘦 提示
+                        stringBuffer.append("体型较瘦，建议您调节饮食。");
+                        healthMark = healthMark - 15;
+                    } else if (result < 0.17) {
+                        // 扣1分 偏瘦
+                        healthMark = healthMark - 5;
+                    } else if (result < 0.24) {
+                        // 满分
+                    } else if (result < 0.3) {
+                        // 扣1分 微胖
+                        healthMark = healthMark - 5;
+                    } else {
+                        // 扣2分 胖
+                        healthMark = healthMark - 20;
+                        sIndividualInfo.setRunDuration(sIndividualInfo.getRunDuration() + 10);
+                        stringBuffer.append("体型较胖，建议您多运动。");
+                    }
+                }
+            } else {
+                double a = waist * 0.74;
+                double b = (weight * 0.082) + 44.74;
+                double result = (a - b) / weight;
+                if (age > 30) {
+                    if (result < 0.15) {
+                        // 扣2分 瘦 提示
+                        healthMark = healthMark - 15;
+                        stringBuffer.append("体型较瘦，建议您调节饮食。");
+                    } else if (result < 0.17) {
+                        // 扣1分 偏瘦
+                        healthMark = healthMark - 5;
+                    } else if (result < 0.23) {
+                        // 满分
+                    } else if (result < 0.25) {
+                        // 扣1分 微胖
+                        healthMark = healthMark - 5;
+                    } else {
+                        // 扣2分 胖
+                        healthMark = healthMark - 20;
+                        sIndividualInfo.setRunDuration(sIndividualInfo.getRunDuration() + 10);
+                        stringBuffer.append("体型较胖，建议您多运动。");
+                    }
+                } else {
+                    if (result < 0.12) {
+                        // 扣2分 瘦 提示
+                        healthMark = healthMark - 15;
+                        stringBuffer.append("体型较瘦，建议您调节饮食。");
+                    } else if (result < 0.14) {
+                        // 扣1分 偏瘦
+                        healthMark = healthMark - 5;
+                    } else if (result < 0.20) {
+                        // 满分
+                    } else if (result < 0.25) {
+                        // 扣1分 微胖
+                        healthMark = healthMark - 5;
+                    } else {
+                        // 扣2分 胖
+                        healthMark = healthMark - 20;
+                        sIndividualInfo.setRunDuration(sIndividualInfo.getRunDuration() + 10);
+                        stringBuffer.append("体型较胖，建议您多运动。");
+                    }
+                }
+            }
+        }
+        //
+
+        SharedPreferences.Editor editor = myApplication.sp.edit();
+        editor.putString("tips", stringBuffer.toString());
+        editor.apply();
+        sIndividualInfo.setHealthMark(healthMark);
+    }
+
 
     @Override
     public void onStop() {
@@ -408,40 +497,23 @@ public class MineFragmentAdd extends Fragment {
         super.onStop();
     }
 
-    // 内部类用于实现禁止recycleView滑动
-//    private class CustomLayoutManager extends LinearLayoutManager {
-//
-//        private boolean isEnableScrolled;
-//
-//        CustomLayoutManager(Context context) {
-//            super(context);
-//        }
-//
-//        void setEnableScrolled(boolean isEnableScrolled) {
-//            this.isEnableScrolled = isEnableScrolled;
-//        }
-//
-//        @Override
-//        public boolean canScrollVertically() {
-//            return isEnableScrolled && super.canScrollVertically();
-//        }
-//    }
     private void enterDialogSupportV7(final int position) {
         android.support.v7.app.AlertDialog.Builder builderV7 = new android.support.v7.app
                 .AlertDialog.Builder(getActivity(), Theme_AppCompat_Light_Dialog);
         builderV7.setTitle("更新" + detail_names.get(position));
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_input, null);
         final EditText enter = (EditText) view.findViewById(R.id.dialog_input);
-        enter.setInputType(TYPE_CLASS_NUMBER);
+        enter.setInputType(TYPE_NUMBER_FLAG_DECIMAL);
+        enter.setMaxLines(5);
         builderV7.setView(view);
         builderV7.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String newEnter = enter.getText().toString();
                 if (!newEnter.equals("")) {
-                    updateEnterInfo(position, newEnter);
                     detail_content.set(position, newEnter);
                     mDetailAdapter.notifyItemChanged(position);
+                    updateDetailInfo(position, newEnter);
                 }
             }
         });
@@ -469,4 +541,30 @@ public class MineFragmentAdd extends Fragment {
         }, 100);
     }
 
+    private void updateDetailInfo(int position, String newEnter) {
+        switch (position) {
+            case 0:
+                sIndividualInfo.setWaistLine(newEnter);
+                break;
+            case 1:
+                sIndividualInfo.setPulse(newEnter);
+                if (Const.stringToInteger(newEnter) > 100 || Const.stringToInteger(newEnter) < 60) {
+                    Const.showToast(getActivity(),"建议在平静的情况下测量。");
+                }
+                break;
+            case 2:
+                sIndividualInfo.setSystolicPressure(newEnter);
+                break;
+            case 3:
+                sIndividualInfo.setDiastolicPressure(newEnter);
+                break;
+            case 4:
+                sIndividualInfo.setBloodSugar(newEnter);
+                break;
+            case 5:
+                sIndividualInfo.setTC(newEnter);
+                break;
+        }
+        updateHealthMark();
+    }
 }

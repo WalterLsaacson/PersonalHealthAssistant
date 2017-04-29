@@ -21,9 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanyin.sardar.pha.R;
-import com.guanyin.sardar.pha.alert.receiver.AlarmReceiver;
 import com.guanyin.sardar.pha.alert.model.Clock;
 import com.guanyin.sardar.pha.alert.model.ClockLab;
+import com.guanyin.sardar.pha.alert.receiver.AlarmReceiver;
 import com.guanyin.sardar.pha.utils.Const;
 
 import java.util.Calendar;
@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import static android.R.style.Theme_DeviceDefault_Light_Dialog_Alert;
+import static android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog;
 
 
 public class EditClockFragment extends Fragment {
@@ -55,6 +55,7 @@ public class EditClockFragment extends Fragment {
     Button mTime;
     Button mMusic;
 
+    // 顶部导航
     ImageView action_bar_back;
     ImageView action_bar_done;
 
@@ -74,23 +75,19 @@ public class EditClockFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View view = inflater.inflate(com.guanyin.sardar.pha.R.layout.fragment_edit_clock,
-                container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_clock, container, false);
         gotClock();
-        images = new int[]{com.guanyin.sardar.pha.R.drawable.tooth, com.guanyin.sardar.pha.R
-                .drawable.longtimeseat, com.guanyin.sardar.pha.R.drawable.bloodpressure,
-                com.guanyin.sardar.pha.R.drawable.sleep, com.guanyin.sardar.pha.R.drawable
-                .weight, com.guanyin.sardar.pha.R.drawable.medicine,};
+        images = new int[]{R.drawable.tooth, R.drawable.longtimeseat, R.drawable.bloodpressure,
+                R.drawable.sleep, R.drawable.weight, R.drawable.medicine,};
         // 根据相应的clock条目进行布局的更新
-        mIcon = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_icon);
-        mIcon.setBackgroundResource(images[Integer.parseInt(mClock.getId())]);
-        mTitle = (TextView) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_title);
+        mIcon = (ImageView) view.findViewById(R.id.edit_clock_icon);
+        mIcon.setBackgroundResource(images[Const.stringToInteger(mClock.getId())]);
+        mTitle = (TextView) view.findViewById(R.id.edit_clock_title);
         mTitle.setText(mClock.getTitle());
 
-        cb_opened = (CheckBox) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_opened_cb);
+        cb_opened = (CheckBox) view.findViewById(R.id.edit_clock_opened_cb);
         cb_opened.setChecked(mClock.isOpen());
-        tv_opened = (TextView) view.findViewById(com.guanyin.sardar.pha.R.id
-                .edit_clock_opened_text);
+        tv_opened = (TextView) view.findViewById(R.id.edit_clock_opened_text);
         tv_opened.setText(mClock.isOpen() ? "开启" : "未开启");
         cb_opened.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,7 +97,7 @@ public class EditClockFragment extends Fragment {
             }
         });
 
-        mTime = (Button) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_time);
+        mTime = (Button) view.findViewById(R.id.edit_clock_time);
         mTime.setText(mClock.getDate());
         mTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,16 +106,17 @@ public class EditClockFragment extends Fragment {
                 // 根据得到的string信息转换为date对象
                 String[] time = mClock.getDate().split(":");
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(0, 0, 0, Integer.parseInt(time[0]), Integer.parseInt(time[1]));
+                calendar.set(0, 0, 0, Const.stringToInteger(time[0]), Const.stringToInteger
+                        (time[1]));
                 TimePickerFragment timeDialog = TimePickerFragment.newInstance(calendar.getTime());
-                timeDialog.setStyle(R.style.AppTheme, Theme_DeviceDefault_Light_Dialog_Alert);
+                timeDialog.setStyle(Theme_AppCompat_Light_Dialog, 0);
                 timeDialog.setTargetFragment(EditClockFragment.this, REQUEST_TIME);
                 timeDialog.show(manager, DIALOG_TIME);
             }
         });
 
 
-        mMusic = (Button) view.findViewById(com.guanyin.sardar.pha.R.id.edit_clock_music);
+        mMusic = (Button) view.findViewById(R.id.edit_clock_music);
         mMusic.setText(mClock.getMusic());
 
 
@@ -129,16 +127,14 @@ public class EditClockFragment extends Fragment {
         }
 
 
-        action_bar_back = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id
-                .action_bar_return);
+        action_bar_back = (ImageView) view.findViewById(R.id.action_bar_return);
         action_bar_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
             }
         });
-        action_bar_done = (ImageView) view.findViewById(com.guanyin.sardar.pha.R.id
-                .action_bar_done);
+        action_bar_done = (ImageView) view.findViewById(R.id.action_bar_done);
         action_bar_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +157,7 @@ public class EditClockFragment extends Fragment {
             mCalendar.setTime(date);
             int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
             int minute = mCalendar.get(Calendar.MINUTE);
-            // 第三步：合并数据，并保存在crime对象中
+            // 第三步：合并数据，并保存在对象中
             StringBuilder sb = new StringBuilder();
             if (hour < 10) {
                 sb.append("0").append(hour).append(":");
@@ -224,11 +220,15 @@ public class EditClockFragment extends Fragment {
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context
                 .ALARM_SERVICE);
         long firstOffset = getFirstOffset();
-        alarmManager.set(AlarmManager.RTC_WAKEUP, 5000, pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                firstOffset + (System.currentTimeMillis()),
-                24 * 60 * 60 * 1000,
-                pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, firstOffset, pendingIntent);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+//                firstOffset + (System.currentTimeMillis()),
+//                24 * 60 * 60 * 1000,
+//                pendingIntent);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+//                System.currentTimeMillis(),
+//                2 * 60 * 1000,
+//                pendingIntent);
         Const.showToast(getActivity(), format(firstOffset));
     }
 
@@ -242,8 +242,8 @@ public class EditClockFragment extends Fragment {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         long currentTimeMills = calendar.getTimeInMillis();
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(time[0]));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(time[1]));
+        calendar.set(Calendar.HOUR_OF_DAY, Const.stringToInteger(time[0]));
+        calendar.set(Calendar.MINUTE, Const.stringToInteger(time[1]));
         firstTimeOffset = (currentTimeMills < calendar.getTimeInMillis())
                 ? calendar.getTimeInMillis() - currentTimeMills
                 : (24 * 60 * 60 * 1000) - (currentTimeMills - calendar.getTimeInMillis());

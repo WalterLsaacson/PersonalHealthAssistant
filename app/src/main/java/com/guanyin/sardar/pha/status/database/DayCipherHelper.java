@@ -2,8 +2,6 @@ package com.guanyin.sardar.pha.status.database;
 
 import android.content.Context;
 
-import com.guanyin.sardar.pha.utils.Const;
-
 import net.sqlcipher.database.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteOpenHelper;
 
@@ -31,14 +29,26 @@ public class DayCipherHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + NAME + "(" +
-                Cols.DATE + "," +
+                Cols.DATE + " int ," +
                 Cols.SLEEP + "," +
                 Cols.WATER + "," +
                 Cols.SPORT +
                 ")"
         );
         db.execSQL("insert into " + NAME
-                + " values('2017.4.1','480','1500','40')"
+                + " values('20170401','460','1430','47')"
+        );
+        db.execSQL("insert into " + NAME
+                + " values('20170421','540','1390','38')"
+        );
+        db.execSQL("insert into " + NAME
+                + " values('20170406','480','1690','43')"
+        );
+        db.execSQL("insert into " + NAME
+                + " values('20170418','433','1560','40')"
+        );
+        db.execSQL("insert into " + NAME
+                + " values('20170415','534','1810','59')"
         );
     }
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.guanyin.sardar.pha.R;
 import com.guanyin.sardar.pha.alert.model.Clock;
 import com.guanyin.sardar.pha.alert.model.ClockLab;
+import com.guanyin.sardar.pha.utils.Const;
 
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class AlertFragment extends Fragment {
 
         void bindClock(Clock clock) {
             mClock = clock;
-            mIcon.setBackgroundResource(images[Integer.parseInt(clock.getId())]);
+            mIcon.setBackgroundResource(images[Const.stringToInteger(clock.getId())]);
             mTitle.setText(mClock.getTitle());
             mOpened.setText(mClock.isOpen() ? "开启" : "未开启");
             mTime.setText(mClock.getDate());

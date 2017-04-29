@@ -25,9 +25,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="100"
             android:textSize="35sp"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fifth"
+            android:textSize="15sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -61,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/today_water"
-            android:textColor="@color/green"
+            android:textColor="@color/thirteen"
             android:textSize="18sp"/>
 
         <TextView
@@ -74,7 +80,16 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/ic_plus"/>
+            android:background="@drawable/ic_add_circle_outline_black_24dp"/>
+
+        <ImageView
+            android:id="@+id/iv_water"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/complete"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -88,16 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="1000"
-            android:textSize="25sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ml"
-            android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:textSize="25sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -109,8 +115,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="睡眠"
-            android:textColor="@color/green"
+            android:text="@string/today_sleep"
+            android:textColor="@color/thirteen"
             android:textSize="18sp"/>
 
         <TextView
@@ -123,8 +129,16 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/ic_plus"/>
+            android:background="@drawable/ic_add_circle_outline_black_24dp"/>
 
+        <ImageView
+            android:id="@+id/iv_rest"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/complete"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout
@@ -137,17 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="9"
-            android:textSize="25sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/hour"
-            android:textSize="15sp"/>
-
+            android:textSize="25sp"/>
 
     </LinearLayout>
 
@@ -162,7 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sport"
-            android:textColor="@color/green"
+            android:textColor="@color/thirteen"
             android:textSize="18sp"/>
 
         <TextView
@@ -175,7 +179,17 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/ic_plus"/>
+            android:background="@drawable/ic_add_circle_outline_black_24dp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_step"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/complete"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -189,15 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="8000"
-            android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:textSize="25sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/step"
-            android:textSize="25sp"
-            android:textStyle="bold"/>
     </LinearLayout>
 </LinearLayout>

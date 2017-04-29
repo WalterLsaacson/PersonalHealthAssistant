@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/midnightblue</color>
     <color name="colorPrimaryDark">@color/midnightblue</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#FF4081</color>
 
     <!-- 网易云音乐的配色-->
     <color name="first">#f47d00</color>
@@ -21,7 +21,6 @@
     <color name="fourteen">#00bcd2</color>
 
     <color name="eye_green">#c7edcc</color>
-
 
 
     <color name="white">#FFFFFF</color><!--白色 -->

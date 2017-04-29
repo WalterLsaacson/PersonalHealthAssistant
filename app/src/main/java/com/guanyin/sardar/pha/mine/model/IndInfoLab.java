@@ -31,9 +31,9 @@ public class IndInfoLab {
     public IndividualInfo getIndividualInfo() {
         InfoCursorWrapper cursorWrapper = queryInfo(null, null);
         cursorWrapper.moveToFirst();
-        IndividualInfo mIndividualInfo = cursorWrapper.getInfo();
+        IndividualInfo sIndividualInfo = cursorWrapper.getInfo();
         cursorWrapper.close();
-        return mIndividualInfo;
+        return sIndividualInfo;
     }
 
 
@@ -62,10 +62,7 @@ public class IndInfoLab {
         values.put(InfoDbSchema.InfoTable.Cols.SEX, individualInfo.getSex());
         values.put(InfoDbSchema.InfoTable.Cols.HEIGHT, individualInfo.getHeight());
         values.put(InfoDbSchema.InfoTable.Cols.WEIGHT, individualInfo.getWeight());
-        values.put(InfoDbSchema.InfoTable.Cols.BMI, individualInfo.getBMI());
-        values.put(InfoDbSchema.InfoTable.Cols.BFR, individualInfo.getBFR());
         values.put(InfoDbSchema.InfoTable.Cols.WAISTLINE, individualInfo.getWaistLine());
-        values.put(InfoDbSchema.InfoTable.Cols.TEMPERATURE, individualInfo.getTemperature());
         values.put(InfoDbSchema.InfoTable.Cols.PULSE, individualInfo.getPulse());
         values.put(InfoDbSchema.InfoTable.Cols.SYSTOLICRESSURE, individualInfo
                 .getSystolicPressure());
@@ -73,9 +70,6 @@ public class IndInfoLab {
                 .getDiastolicPressure());
         values.put(InfoDbSchema.InfoTable.Cols.BLOODSUGAR, individualInfo.getBloodSugar());
         values.put(InfoDbSchema.InfoTable.Cols.TC, individualInfo.getTC());
-        values.put(InfoDbSchema.InfoTable.Cols.TG, individualInfo.getTG());
-        values.put(InfoDbSchema.InfoTable.Cols.LDL_C, individualInfo.getLDL_L());
-        values.put(InfoDbSchema.InfoTable.Cols.HDL_C, individualInfo.getHDL_C());
         values.put(InfoDbSchema.InfoTable.Cols.WATERINTAKE, individualInfo.getWaterIntake());
         values.put(InfoDbSchema.InfoTable.Cols.SLEEPTIME, individualInfo.getSleepTime());
         values.put(InfoDbSchema.InfoTable.Cols.RUNDURATION, individualInfo.getRunDuration());

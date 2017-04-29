@@ -25,6 +25,6 @@ public class MyToast {
 //        toast.setView(view);
 //        toast.show();
 
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 }

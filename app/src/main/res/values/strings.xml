@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name_shorter">PHA</string>
     <string name="app_name">PersonalHealthAssistant</string>
     <string name="_3s">3s</string>
@@ -21,20 +20,23 @@
     <string name="_65kg">65KG</string>
     <string name="_175CM">175CM</string>
     <string name="mine">我的</string>
-    <string name="foundtion_info">完善基本信息</string>
+    <string name="foundation_info">完善基本信息</string>
     <string name="foundation">基本信息</string>
     <string name="detail">详细信息</string>
     <string name="title_activity_custom_view">CustomViewActivity</string>
     <string name="today_health_mark">我的健康指数</string>
     <string name="today_water">饮水</string>
-    <string name="ml">ML</string>
     <string name="today_sleep">睡眠</string>
     <string name="keep_hard">仍需努力</string>
-    <string name="hour">小时</string>
-    <string name="min">分钟</string>
     <string name="sport">活动</string>
-    <string name="step">步</string>
     <string name="new_values">请输入新值</string>
+    <string name="total_avg_step">日均运动</string>
+    <string name="total_avg_water">日均饮水</string>
+    <string name="total_avg_sleep">日均睡眠</string>
+    <string name="to">到</string>
+    <string name="title_activity_date_picker">DatePickerActivity</string>
+    <string name="total_score">总体表现</string>
+    <string name="more_detail">具体细节</string>
 
 
 </resources>

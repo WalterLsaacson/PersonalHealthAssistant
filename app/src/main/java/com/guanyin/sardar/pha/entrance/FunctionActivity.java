@@ -12,8 +12,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.guanyin.sardar.pha.R;
 import com.guanyin.sardar.pha.alert.AlertFragment;
-import com.guanyin.sardar.pha.fragments.FindFragment;
-import com.guanyin.sardar.pha.mine.MineFragment;
+import com.guanyin.sardar.pha.count.CountFragment;
 import com.guanyin.sardar.pha.mine.MineFragmentAdd;
 import com.guanyin.sardar.pha.status.StatusFragment;
 import com.guanyin.sardar.pha.utils.Const;
@@ -43,9 +42,8 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
 
 
     StatusFragment mStatusFragment;
-    FindFragment mFindFragment;
+    CountFragment mCountFragment;
     AlertFragment mAlertFragment;
-    MineFragment mMineFragment;
     MineFragmentAdd mMineFragmentAddtional;
 
     TextView tv_fragment_name;
@@ -140,10 +138,10 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
                 lastSelectedPosition = STATUS_FRAGMENT;
                 break;
             case FIND_FRAGMENT:
-                if (mFindFragment == null) {
-                    mFindFragment = FindFragment.newInstance();
+                if (mCountFragment == null) {
+                    mCountFragment = CountFragment.newInstance();
                 }
-                transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mFindFragment);
+                transaction.replace(com.guanyin.sardar.pha.R.id.fragment_container, mCountFragment);
                 lastSelectedPosition = FIND_FRAGMENT;
                 break;
             case MORE_FRAGMENT:
@@ -154,9 +152,6 @@ public class FunctionActivity extends AppCompatActivity implements BottomNavigat
                 lastSelectedPosition = MORE_FRAGMENT;
                 break;
             case MINE_FRAGMENT:
-                if (mMineFragment == null) {
-                    mMineFragment = MineFragment.newInstance();
-                }
                 if (mMineFragmentAddtional == null) {
                     mMineFragmentAddtional = MineFragmentAdd.newInstance();
                 }

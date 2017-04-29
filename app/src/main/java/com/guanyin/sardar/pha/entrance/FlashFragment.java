@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.guanyin.sardar.pha.R;
 import com.guanyin.sardar.pha.mine.EnterInfoActivity;
+import com.guanyin.sardar.pha.utils.Const;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,7 +41,7 @@ public class FlashFragment extends Fragment {
         // 设置文字递减
         mCountDownTimer.start();
         // 设置点击跳过当前activity
-        timeTextView = (TextView) view.findViewById(com.guanyin.sardar.pha.R.id.timeTextView);
+        timeTextView = (TextView) view.findViewById(R.id.timeTextView);
         timeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +73,12 @@ public class FlashFragment extends Fragment {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("initApp", 1);
             editor.apply();
+            SharedPreferences sharedPreferences1 = getActivity().getSharedPreferences("initDate",
+                    MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+            editor1.putLong("initDate", Const.getCurrentMillisecond());
+            Const.log("FlashFragment", Const.getCurrentMillisecond() + "");
+            editor1.apply();
             intent = EnterInfoActivity.newIntent(getActivity());
             startActivity(intent);
         } else {

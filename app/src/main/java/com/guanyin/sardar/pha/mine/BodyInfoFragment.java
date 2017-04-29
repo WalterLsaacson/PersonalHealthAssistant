@@ -92,7 +92,7 @@ public class BodyInfoFragment extends Fragment {
 
     private void setDefault() {
         // 男性  170  65   女性 155 45
-        if (mIndividualInfo.getSex().equals("male")) {
+        if (mIndividualInfo.getSex().equals("男")) {
             heightWheelView.setSelection(20);
             weightWheelView.setSelection(25);
         } else {

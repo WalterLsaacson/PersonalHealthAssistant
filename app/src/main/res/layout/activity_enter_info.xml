@@ -10,7 +10,7 @@
         android:layout_height="48dp"
         android:background="@color/midnightblue"
         android:gravity="center"
-        android:text="@string/foundtion_info"
+        android:text="@string/foundation_info"
         android:textColor="@color/white"
         android:textSize="18sp"/>
 

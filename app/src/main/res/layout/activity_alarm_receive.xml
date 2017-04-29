@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/balloon"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.guanyin.sardar.pha.alert.receiver.AlarmReceiveActivity">

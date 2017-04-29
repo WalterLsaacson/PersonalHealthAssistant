@@ -21,6 +21,8 @@ import com.wx.wheelview.widget.WheelView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static com.guanyin.sardar.pha.mine.EnterInfoActivity.sIndividualInfo;
+
 
 public class InfoFragment extends Fragment {
 
@@ -112,8 +114,8 @@ public class InfoFragment extends Fragment {
         yearWheelView.setSkin(WheelView.Skin.Holo);
         yearList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
-        final int currentYear = calendar.get(Calendar.YEAR) - 3;
-        for (int i = 1980; i <= currentYear; i++) {
+        final int currentYear = calendar.get(Calendar.YEAR) - 18;
+        for (int i = 1940; i <= currentYear; i++) {
             yearList.add(i + "");
         }
         yearWheelView.setWheelData(yearList);
@@ -121,14 +123,29 @@ public class InfoFragment extends Fragment {
         yearWheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectedListener() {
             @Override
             public void onItemSelected(int position, Object o) {
+                Calendar calendar = Calendar.getInstance();
+                int currentYear = calendar.get(Calendar.YEAR);
+                int selectYear = Integer.parseInt(yearList.get(position).toString());
                 String year = yearList.get(position).toString() + "年";
                 tv_year.setText(year);
 //                mIndividualInfo.setAge(currentYear - 1980 - position + 3 + "");
-                mIndividualInfo.setAge(yearList.get(position).toString());
+                mIndividualInfo.setAge(currentYear - selectYear + "");
+                updateStepDuration();
             }
         });
-        yearWheelView.setSelection(15);
+        yearWheelView.setSelection(55);
 
         return view;
+    }
+
+    private void updateStepDuration() {
+        int age = Integer.parseInt(sIndividualInfo.getAge());
+        if (age <= 17) {
+            sIndividualInfo.setRunDuration(60);
+        } else if (age < 65) {
+            sIndividualInfo.setRunDuration(200);
+        } else {
+            sIndividualInfo.setRunDuration(150);
+        }
     }
 }

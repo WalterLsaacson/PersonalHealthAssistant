@@ -1,7 +1,6 @@
 package com.guanyin.sardar.pha.alert;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,13 +8,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TimePicker;
 
+import com.guanyin.sardar.pha.R;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import static android.support.v7.appcompat.R.style.Theme_AppCompat_Light_Dialog;
 
 
 // 日期选择的fragment 使用fragment的args方法进行设置展示的日期
@@ -49,14 +53,14 @@ public class TimePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(com.guanyin.sardar.pha.R.layout.dialog_time, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_time, null);
 
         // 从参数中获取date对象
         Date date = (Date) getArguments().getSerializable(ARG_TIME);
         getTime(date);
 
 
-        final TimePicker mTimePicker = (TimePicker) view.findViewById(com.guanyin.sardar.pha.R.id.dialog_time_time_picker);
+        final TimePicker mTimePicker = (TimePicker) view.findViewById(R.id.dialog_time_time_picker);
 
         mTimePicker.setIs24HourView(true);
 
@@ -64,7 +68,7 @@ public class TimePickerFragment extends DialogFragment {
             mTimePicker.setHour(hour);
             mTimePicker.setMinute(minute);
         }
-        return new AlertDialog.Builder(getActivity())
+        return new AlertDialog.Builder(getActivity(),Theme_AppCompat_Light_Dialog)
                 .setView(view)
                 .setTitle(com.guanyin.sardar.pha.R.string.time_picker_title)
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

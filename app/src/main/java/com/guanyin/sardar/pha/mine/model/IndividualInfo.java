@@ -3,6 +3,7 @@ package com.guanyin.sardar.pha.mine.model;
 
 import java.io.Serializable;
 
+
 public class IndividualInfo implements Serializable {
     private String age;
     private String sex;
@@ -12,24 +13,40 @@ public class IndividualInfo implements Serializable {
     private String id;
 
     // 第二次增加
-    private String BMI;
-    private String BFR;
     private String waistLine;
-    private String temperature;
     private String pulse;
     private String systolicPressure;
     private String diastolicPressure;
     private String bloodSugar;
     private String TC;
-    private String TG;
-    private String LDL_L;
-    private String HDL_C;
 
     // 第三次增加
-    private String waterIntake;
-    private String sleepTime;
-    private String runDuration;
-    private String healthMark;
+    private int waterIntake;
+    private int sleepTime;
+    private int runDuration;
+    private int healthMark;
+
+    @Override
+    public String toString() {
+        return "IndividualInfo{" +
+                "age='" + age + '\'' +
+                ", sex='" + sex + '\'' +
+                ", petName='" + petName + '\'' +
+                ", height='" + height + '\'' +
+                ", weight='" + weight + '\'' +
+                ", id='" + id + '\'' +
+                ", waistLine='" + waistLine + '\'' +
+                ", pulse='" + pulse + '\'' +
+                ", systolicPressure='" + systolicPressure + '\'' +
+                ", diastolicPressure='" + diastolicPressure + '\'' +
+                ", bloodSugar='" + bloodSugar + '\'' +
+                ", TC='" + TC + '\'' +
+                ", waterIntake=" + waterIntake +
+                ", sleepTime=" + sleepTime +
+                ", runDuration=" + runDuration +
+                ", healthMark=" + healthMark +
+                '}';
+    }
 
     public String getTC() {
         return TC;
@@ -39,29 +56,6 @@ public class IndividualInfo implements Serializable {
         this.TC = TC;
     }
 
-    public String getTG() {
-        return TG;
-    }
-
-    public void setTG(String TG) {
-        this.TG = TG;
-    }
-
-    public String getLDL_L() {
-        return LDL_L;
-    }
-
-    public void setLDL_L(String LDL_L) {
-        this.LDL_L = LDL_L;
-    }
-
-    public String getHDL_C() {
-        return HDL_C;
-    }
-
-    public void setHDL_C(String HDL_C) {
-        this.HDL_C = HDL_C;
-    }
 
     public String getSystolicPressure() {
         return systolicPressure;
@@ -79,81 +73,38 @@ public class IndividualInfo implements Serializable {
         this.diastolicPressure = diastolicPressure;
     }
 
-    @Override
-    public String toString() {
-        return "IndividualInfo{" +
-                "age='" + age + '\'' +
-                ", sex='" + sex + '\'' +
-                ", petName='" + petName + '\'' +
-                ", height='" + height + '\'' +
-                ", weight='" + weight + '\'' +
-                ", id='" + id + '\'' +
-                ", BMI='" + BMI + '\'' +
-                ", BFR='" + BFR + '\'' +
-                ", waistLine='" + waistLine + '\'' +
-                ", temperature='" + temperature + '\'' +
-                ", pulse='" + pulse + '\'' +
-                ", systolicPressure='" + systolicPressure + '\'' +
-                ", diastolicPressure='" + diastolicPressure + '\'' +
-                ", bloodSugar='" + bloodSugar + '\'' +
-                ", TC='" + TC + '\'' +
-                ", TG='" + TG + '\'' +
-                ", LDL_L='" + LDL_L + '\'' +
-                ", HDL_C='" + HDL_C + '\'' +
-                ", waterIntake='" + waterIntake + '\'' +
-                ", sleepTime='" + sleepTime + '\'' +
-                ", runDuration='" + runDuration + '\'' +
-                ", healthMark='" + healthMark + '\'' +
-                '}';
-    }
-
-    public String getHealthMark() {
-        return healthMark;
-    }
-
-    public void setHealthMark(String healthMark) {
-        this.healthMark = healthMark;
-    }
-
-    public String getWaterIntake() {
+    public int getWaterIntake() {
         return waterIntake;
     }
 
-    public void setWaterIntake(String waterIntake) {
+    public void setWaterIntake(int waterIntake) {
         this.waterIntake = waterIntake;
     }
 
-    public String getSleepTime() {
+    public int getSleepTime() {
         return sleepTime;
     }
 
-    public void setSleepTime(String sleepTime) {
+    public void setSleepTime(int sleepTime) {
         this.sleepTime = sleepTime;
     }
 
-    public String getRunDuration() {
+    public int getRunDuration() {
         return runDuration;
     }
 
-    public void setRunDuration(String runDuration) {
+    public void setRunDuration(int runDuration) {
         this.runDuration = runDuration;
     }
 
-    public String getBMI() {
-        return BMI;
+    public int getHealthMark() {
+        return healthMark;
     }
 
-    public void setBMI(String BMI) {
-        this.BMI = BMI;
+    public void setHealthMark(int healthMark) {
+        this.healthMark = healthMark;
     }
 
-    public String getBFR() {
-        return BFR;
-    }
-
-    public void setBFR(String BFR) {
-        this.BFR = BFR;
-    }
 
     public String getWaistLine() {
         return waistLine;
@@ -163,13 +114,6 @@ public class IndividualInfo implements Serializable {
         this.waistLine = waistLine;
     }
 
-    public String getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(String temperature) {
-        this.temperature = temperature;
-    }
 
     public String getPulse() {
         return pulse;

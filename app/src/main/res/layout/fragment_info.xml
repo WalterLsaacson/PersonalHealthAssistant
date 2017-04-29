@@ -29,6 +29,8 @@
             android:hint="@string/nick_name"
             android:padding="8dp"
             android:inputType="text"
+            android:minHeight="32dp"
+            android:minWidth="196dp"
             android:labelFor="@+id/info_pet_name"
             android:maxLength="8"
             android:textSize="18sp"/>

@@ -2,6 +2,7 @@ package com.guanyin.sardar.pha.status.database;
 
 
 import com.guanyin.sardar.pha.status.model.Day;
+import com.guanyin.sardar.pha.utils.Const;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.CursorWrapper;
@@ -24,7 +25,7 @@ public class DayCursorWrapper extends CursorWrapper {
 
     public Day getDay() {
         // 从数据库对象到Day对象的转换
-        String date = getString(getColumnIndex(DATE));
+        int date = getInt(getColumnIndex(DATE));
         String sleep = getString(getColumnIndex(SLEEP));
         String sport = getString(getColumnIndex(SPORT));
         String water = getString(getColumnIndex(WATER));
@@ -33,9 +34,9 @@ public class DayCursorWrapper extends CursorWrapper {
         Day day = new Day();
 
         day.setDate(date);
-        day.setSleep(sleep);
-        day.setSport(sport);
-        day.setWater(water);
+        day.setSleep(Const.stringToInteger(sleep));
+        day.setStep(Const.stringToInteger(sport));
+        day.setWater(Const.stringToInteger(water));
 
         return day;
     }
