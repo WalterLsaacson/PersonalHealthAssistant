@@ -80,7 +80,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/ic_add_circle_outline_black_24dp"/>
+            android:background="@drawable/ic_add"/>
 
         <ImageView
             android:id="@+id/iv_water"
@@ -129,7 +129,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/ic_add_circle_outline_black_24dp"/>
+            android:background="@drawable/ic_add"/>
 
         <ImageView
             android:id="@+id/iv_rest"
@@ -179,7 +179,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/ic_add_circle_outline_black_24dp"
+            android:background="@drawable/ic_add"
             />
 
         <ImageView
